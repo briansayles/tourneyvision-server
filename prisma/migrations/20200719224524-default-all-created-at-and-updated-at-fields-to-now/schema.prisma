@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -11,27 +11,9 @@ model User {
   id   String @default(cuid()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  authProvider AuthProvider?
   name String
   credits Int @default(0)
   tournaments Tournament[]
-  players Player[]
-}
-
-model AuthProvider {
-  id String @default(uuid()) @id
-  createdAt DateTime @default(now())
-  user User @relation(fields: [userId], references: [id])
-  userId String
-  auth0 Auth0?
-}
-
-model Auth0 {
-  id String @default(uuid()) @id
-  createdAt DateTime @default(now())
-  authProvider AuthProvider @relation(fields: [authProviderId], references: [id])
-  authProviderId String
-  idToken String?
 }
 
 model Tournament {
@@ -48,73 +30,49 @@ model Tournament {
   chips Chip[]
   costs Cost[]
   timer Timer?
-  payoutLevels PayoutLevel[]
 }
 
 model Segment {
   id String @default(uuid()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  tournament Tournament @relation(fields: [tournamentId], references: [id])
-  tournamentId String
   duration Int
   sBlind Int
   bBlind Int
   ante Int
   game String
+  tournament Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId String
   }
 
 model Chip {
   id String @default(uuid()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  tournament Tournament @relation(fields: [tournamentId], references: [id])
-  tournamentId String
   denom Int
   color String
   rimColor String
   textColor String
   qtyAvailable Int
+  tournament Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId String
 }
 
 model Cost {
   id String @default(uuid()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  tournament Tournament @relation(fields: [tournamentId], references: [id])
-  tournamentId String
   costType String
   price Int
   chipStack Int
-  buys Buy[]
-}
-
-model Buy {
-  id String @default(uuid()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  cost Cost @relation(fields: [costId], references: [id])
-  costId String
-  player Player? @relation(fields: [playerId], references: [id])
-  playerId String?
-}
-
-model Player {
-  id String @default(uuid()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  user User @relation(fields: [userId], references: [id])
-  userId String
-  name String?
-  buys Buy[]
+  tournament Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId String
 }
 
 model Timer {
   id String @default(uuid()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  tournament Tournament @relation(fields: [tournamentId], references: [id])
-  tournamentId String
   active Boolean
   elapsed Int
   oneMinuteRemainingSpeech String
@@ -122,15 +80,6 @@ model Timer {
   endOfRoundSpeech String
   playEndOfRoundSound Boolean
   backgroundColor String
-}
-
-model PayoutLevel {
-  id String @default(uuid()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
   tournament Tournament @relation(fields: [tournamentId], references: [id])
   tournamentId String
-  levelNumber Int
-  payCount Int
-  playerCount Int
 }

@@ -1,0 +1,47 @@
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id   String @default(cuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  name String
+}
+
+model Tournament {
+  id String @default(uuid()) @id
+  createdAt DateTime
+  updatedAt DateTime
+  title String
+  subtitle String
+  comments String
+  game String
+}
+
+model Segment {
+  id String @default(uuid()) @id
+  createdAt DateTime
+  updatedAt DateTime
+  duration Int
+  sBlind Int
+  bBlind Int
+  ante Int
+  game String
+}
+
+model Chip {
+  id String @default(uuid()) @id
+  createdAt DateTime
+  updatedAt DateTime
+  denom Int
+  color String
+  rimColor String
+  textColor String
+  qtyAvailable Int
+}

@@ -1,3 +1,17 @@
 # Prisma Migrate lockfile v1
 
 20200713213423-init
+20200717203945-add-tournament--segment-and-chip
+20200717204751-add-tournament--segment--chip
+20200717205114-added-tournament--segment--chip-and-created-at-and-updated-at-to-user
+20200718225904-added-cost
+20200719221359-add-timer-and-relationships-for-previously-added-models
+20200719222816-added-timer-and-created-relationships
+20200719223657-made-user-optional-on-tournament
+20200719223918-made-timer-optional-on-tournament
+20200719224524-default-all-created-at-and-updated-at-fields-to-now
+20200719225056-added-payout-level-and-relationship-with-tournament
+20200719230835-added-buy-and-player-and-relationships-for-cost
+20200719231433-added-user-as-owner-of-player
+20200719235614-added-auth-provider-and-auth0-models-and-relations
+20200720000302-made-auth-fields-optional--temporary

@@ -1,0 +1,83 @@
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id   String @default(cuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  name String
+  credits Int @default(0)
+  tournaments Tournament[]
+}
+
+model Tournament {
+  id String @default(uuid()) @id
+  createdAt DateTime
+  updatedAt DateTime
+  user User? @relation(fields: [userId], references: [id])
+  userId String?
+  title String
+  subtitle String
+  comments String
+  game String
+  segments Segment[]
+  chips Chip[]
+  costs Cost[]
+  timer Timer?
+}
+
+model Segment {
+  id String @default(uuid()) @id
+  createdAt DateTime
+  updatedAt DateTime
+  duration Int
+  sBlind Int
+  bBlind Int
+  ante Int
+  game String
+  tournament Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId String
+  }
+
+model Chip {
+  id String @default(uuid()) @id
+  createdAt DateTime
+  updatedAt DateTime
+  denom Int
+  color String
+  rimColor String
+  textColor String
+  qtyAvailable Int
+  tournament Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId String
+}
+
+model Cost {
+  id String @default(uuid()) @id
+  costType String
+  price Int
+  chipStack Int
+  tournament Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId String
+}
+
+model Timer {
+  id String @default(uuid()) @id
+  active Boolean
+  createdAt DateTime
+  updatedAt DateTime
+  elapsed Int
+  oneMinuteRemainingSpeech String
+  playOneMinuteRemainingSound Boolean
+  endOfRoundSpeech String
+  playEndOfRoundSound Boolean
+  backgroundColor String
+  tournament Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId String
+}
