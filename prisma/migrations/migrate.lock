@@ -15,3 +15,4 @@
 20200719231433-added-user-as-owner-of-player
 20200719235614-added-auth-provider-and-auth0-models-and-relations
 20200720000302-made-auth-fields-optional--temporary
+20200807234930-equivalent-to-graph-cool-schema

@@ -41,11 +41,3 @@ schema.mutationType({
     t.crud.updateManyUser();
   },
 });
-
-schema.objectType({
-  name: "Tournament",
-  definition(t) {
-    t.model(id),
-    
-  }
-})
