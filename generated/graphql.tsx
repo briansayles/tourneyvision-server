@@ -119,6 +119,11 @@ export type BooleanFilter = {
   not?: Maybe<Scalars['Boolean']>;
 };
 
+export type Buy = {
+  __typename?: 'Buy';
+  id: Scalars['String'];
+};
+
 export type BuyCreateManyWithoutCostInput = {
   create?: Maybe<Array<BuyCreateWithoutCostInput>>;
   connect?: Maybe<Array<BuyWhereUniqueInput>>;
@@ -248,6 +253,13 @@ export type BuyWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type Chip = {
+  __typename?: 'Chip';
+  denom: Scalars['Int'];
+  color: Scalars['String'];
+  qtyAvailable?: Maybe<Scalars['Int']>;
+};
+
 export type ChipCreateManyWithoutTournamentInput = {
   create?: Maybe<Array<ChipCreateWithoutTournamentInput>>;
   connect?: Maybe<Array<ChipWhereUniqueInput>>;
@@ -257,11 +269,11 @@ export type ChipCreateWithoutTournamentInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  denom: Scalars['Int'];
-  color: Scalars['String'];
-  rimColor: Scalars['String'];
-  textColor: Scalars['String'];
-  qtyAvailable: Scalars['Int'];
+  denom?: Maybe<Scalars['Int']>;
+  color?: Maybe<Scalars['String']>;
+  rimColor?: Maybe<Scalars['String']>;
+  textColor?: Maybe<Scalars['String']>;
+  qtyAvailable?: Maybe<Scalars['Int']>;
 };
 
 export type ChipFilter = {
@@ -277,9 +289,9 @@ export type ChipScalarWhereInput = {
   tournamentId?: Maybe<StringFilter>;
   denom?: Maybe<IntFilter>;
   color?: Maybe<StringFilter>;
-  rimColor?: Maybe<StringFilter>;
-  textColor?: Maybe<StringFilter>;
-  qtyAvailable?: Maybe<IntFilter>;
+  rimColor?: Maybe<NullableStringFilter>;
+  textColor?: Maybe<NullableStringFilter>;
+  qtyAvailable?: Maybe<NullableIntFilter>;
   AND?: Maybe<Array<ChipScalarWhereInput>>;
   OR?: Maybe<Array<ChipScalarWhereInput>>;
   NOT?: Maybe<Array<ChipScalarWhereInput>>;
@@ -342,9 +354,9 @@ export type ChipWhereInput = {
   tournamentId?: Maybe<StringFilter>;
   denom?: Maybe<IntFilter>;
   color?: Maybe<StringFilter>;
-  rimColor?: Maybe<StringFilter>;
-  textColor?: Maybe<StringFilter>;
-  qtyAvailable?: Maybe<IntFilter>;
+  rimColor?: Maybe<NullableStringFilter>;
+  textColor?: Maybe<NullableStringFilter>;
+  qtyAvailable?: Maybe<NullableIntFilter>;
   AND?: Maybe<Array<ChipWhereInput>>;
   OR?: Maybe<Array<ChipWhereInput>>;
   NOT?: Maybe<Array<ChipWhereInput>>;
@@ -353,6 +365,121 @@ export type ChipWhereInput = {
 
 export type ChipWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
+};
+
+export type ContactCreateemailsInput = {
+  set?: Maybe<Array<Scalars['String']>>;
+};
+
+export type ContactCreateManyWithoutUserInput = {
+  create?: Maybe<Array<ContactCreateWithoutUserInput>>;
+  connect?: Maybe<Array<ContactWhereUniqueInput>>;
+};
+
+export type ContactCreatephonesInput = {
+  set?: Maybe<Array<Scalars['String']>>;
+};
+
+export type ContactCreateWithoutUserInput = {
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  phones?: Maybe<ContactCreatephonesInput>;
+  emails?: Maybe<ContactCreateemailsInput>;
+};
+
+export type ContactFilter = {
+  every?: Maybe<ContactWhereInput>;
+  some?: Maybe<ContactWhereInput>;
+  none?: Maybe<ContactWhereInput>;
+};
+
+export type ContactScalarWhereInput = {
+  id?: Maybe<StringFilter>;
+  name?: Maybe<StringFilter>;
+  userId?: Maybe<StringFilter>;
+  AND?: Maybe<Array<ContactScalarWhereInput>>;
+  OR?: Maybe<Array<ContactScalarWhereInput>>;
+  NOT?: Maybe<Array<ContactScalarWhereInput>>;
+};
+
+export type ContactUpdateemailsInput = {
+  set?: Maybe<Array<Scalars['String']>>;
+};
+
+export type ContactUpdateManyDataInput = {
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  phones?: Maybe<ContactUpdatephonesInput>;
+  emails?: Maybe<ContactUpdateemailsInput>;
+};
+
+export type ContactUpdateManyWithoutUserInput = {
+  create?: Maybe<Array<ContactCreateWithoutUserInput>>;
+  connect?: Maybe<Array<ContactWhereUniqueInput>>;
+  set?: Maybe<Array<ContactWhereUniqueInput>>;
+  disconnect?: Maybe<Array<ContactWhereUniqueInput>>;
+  delete?: Maybe<Array<ContactWhereUniqueInput>>;
+  update?: Maybe<Array<ContactUpdateWithWhereUniqueWithoutUserInput>>;
+  updateMany?: Maybe<Array<ContactUpdateManyWithWhereNestedInput>>;
+  deleteMany?: Maybe<Array<ContactScalarWhereInput>>;
+  upsert?: Maybe<Array<ContactUpsertWithWhereUniqueWithoutUserInput>>;
+};
+
+export type ContactUpdateManyWithWhereNestedInput = {
+  where: ContactScalarWhereInput;
+  data: ContactUpdateManyDataInput;
+};
+
+export type ContactUpdatephonesInput = {
+  set?: Maybe<Array<Scalars['String']>>;
+};
+
+export type ContactUpdateWithoutUserDataInput = {
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  phones?: Maybe<ContactUpdatephonesInput>;
+  emails?: Maybe<ContactUpdateemailsInput>;
+};
+
+export type ContactUpdateWithWhereUniqueWithoutUserInput = {
+  where: ContactWhereUniqueInput;
+  data: ContactUpdateWithoutUserDataInput;
+};
+
+export type ContactUpsertWithWhereUniqueWithoutUserInput = {
+  where: ContactWhereUniqueInput;
+  update: ContactUpdateWithoutUserDataInput;
+  create: ContactCreateWithoutUserInput;
+};
+
+export type ContactWhereInput = {
+  id?: Maybe<StringFilter>;
+  name?: Maybe<StringFilter>;
+  userId?: Maybe<StringFilter>;
+  AND?: Maybe<Array<ContactWhereInput>>;
+  OR?: Maybe<Array<ContactWhereInput>>;
+  NOT?: Maybe<Array<ContactWhereInput>>;
+  user?: Maybe<UserWhereInput>;
+};
+
+export type ContactWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
+export type Cost = {
+  __typename?: 'Cost';
+  price: Scalars['Int'];
+  chipStack: Scalars['Int'];
+  costType: CostType;
+  buys: Array<Buy>;
+};
+
+
+export type CostBuysArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<BuyWhereUniqueInput>;
+  after?: Maybe<BuyWhereUniqueInput>;
 };
 
 export type CostCreateManyWithoutTournamentInput = {
@@ -369,9 +496,9 @@ export type CostCreateWithoutBuysInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  costType: Scalars['String'];
-  price: Scalars['Int'];
-  chipStack: Scalars['Int'];
+  costType?: Maybe<CostType>;
+  price?: Maybe<Scalars['Int']>;
+  chipStack?: Maybe<Scalars['Int']>;
   tournament: TournamentCreateOneWithoutCostsInput;
 };
 
@@ -379,9 +506,9 @@ export type CostCreateWithoutTournamentInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  costType: Scalars['String'];
-  price: Scalars['Int'];
-  chipStack: Scalars['Int'];
+  costType?: Maybe<CostType>;
+  price?: Maybe<Scalars['Int']>;
+  chipStack?: Maybe<Scalars['Int']>;
   buys?: Maybe<BuyCreateManyWithoutCostInput>;
 };
 
@@ -396,7 +523,7 @@ export type CostScalarWhereInput = {
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
   tournamentId?: Maybe<StringFilter>;
-  costType?: Maybe<StringFilter>;
+  costType?: Maybe<CostType>;
   price?: Maybe<IntFilter>;
   chipStack?: Maybe<IntFilter>;
   buys?: Maybe<BuyFilter>;
@@ -405,11 +532,20 @@ export type CostScalarWhereInput = {
   NOT?: Maybe<Array<CostScalarWhereInput>>;
 };
 
+export enum CostType {
+  Buyin = 'Buyin',
+  Rebuy = 'Rebuy',
+  Addon = 'Addon',
+  Bounty = 'Bounty',
+  House = 'House',
+  Charity = 'Charity'
+}
+
 export type CostUpdateManyDataInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  costType?: Maybe<Scalars['String']>;
+  costType?: Maybe<CostType>;
   price?: Maybe<Scalars['Int']>;
   chipStack?: Maybe<Scalars['Int']>;
 };
@@ -442,7 +578,7 @@ export type CostUpdateWithoutBuysDataInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  costType?: Maybe<Scalars['String']>;
+  costType?: Maybe<CostType>;
   price?: Maybe<Scalars['Int']>;
   chipStack?: Maybe<Scalars['Int']>;
   tournament?: Maybe<TournamentUpdateOneRequiredWithoutCostsInput>;
@@ -452,7 +588,7 @@ export type CostUpdateWithoutTournamentDataInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  costType?: Maybe<Scalars['String']>;
+  costType?: Maybe<CostType>;
   price?: Maybe<Scalars['Int']>;
   chipStack?: Maybe<Scalars['Int']>;
   buys?: Maybe<BuyUpdateManyWithoutCostInput>;
@@ -479,7 +615,7 @@ export type CostWhereInput = {
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
   tournamentId?: Maybe<StringFilter>;
-  costType?: Maybe<StringFilter>;
+  costType?: Maybe<CostType>;
   price?: Maybe<IntFilter>;
   chipStack?: Maybe<IntFilter>;
   buys?: Maybe<BuyFilter>;
@@ -505,6 +641,16 @@ export type DateTimeFilter = {
   gte?: Maybe<Scalars['DateTime']>;
 };
 
+export enum Game {
+  Nlhe = 'NLHE',
+  Plo = 'PLO',
+  Lhe = 'LHE',
+  L7S = 'L7S',
+  Horse = 'HORSE',
+  Hose = 'HOSE',
+  Cap = 'CAP'
+}
+
 export type IntFilter = {
   equals?: Maybe<Scalars['Int']>;
   not?: Maybe<Scalars['Int']>;
@@ -519,7 +665,6 @@ export type IntFilter = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  bigRedButton?: Maybe<Scalars['String']>;
   createOneUser: User;
   deleteOneUser?: Maybe<User>;
   deleteManyUser: BatchPayload;
@@ -552,6 +697,28 @@ export type MutationUpdateOneUserArgs = {
 export type MutationUpdateManyUserArgs = {
   data: UserUpdateManyMutationInput;
   where?: Maybe<UserWhereInput>;
+};
+
+export type NullableDateTimeFilter = {
+  equals?: Maybe<Scalars['DateTime']>;
+  not?: Maybe<Scalars['DateTime']>;
+  in?: Maybe<Array<Scalars['DateTime']>>;
+  notIn?: Maybe<Array<Scalars['DateTime']>>;
+  lt?: Maybe<Scalars['DateTime']>;
+  lte?: Maybe<Scalars['DateTime']>;
+  gt?: Maybe<Scalars['DateTime']>;
+  gte?: Maybe<Scalars['DateTime']>;
+};
+
+export type NullableIntFilter = {
+  equals?: Maybe<Scalars['Int']>;
+  not?: Maybe<Scalars['Int']>;
+  in?: Maybe<Array<Scalars['Int']>>;
+  notIn?: Maybe<Array<Scalars['Int']>>;
+  lt?: Maybe<Scalars['Int']>;
+  lte?: Maybe<Scalars['Int']>;
+  gt?: Maybe<Scalars['Int']>;
+  gte?: Maybe<Scalars['Int']>;
 };
 
 export type NullableStringFilter = {
@@ -675,12 +842,44 @@ export type PlayerCreateOneWithoutBuysInput = {
   connect?: Maybe<PlayerWhereUniqueInput>;
 };
 
+export type PlayerCreateOneWithoutSeatInput = {
+  create?: Maybe<PlayerCreateWithoutSeatInput>;
+  connect?: Maybe<PlayerWhereUniqueInput>;
+};
+
+export type PlayerCreateOneWithoutTournamentsInput = {
+  create?: Maybe<PlayerCreateWithoutTournamentsInput>;
+  connect?: Maybe<PlayerWhereUniqueInput>;
+};
+
 export type PlayerCreateWithoutBuysInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   name?: Maybe<Scalars['String']>;
   user: UserCreateOneWithoutPlayersInput;
+  seat?: Maybe<SeatCreateOneWithoutPlayerInput>;
+  tournaments?: Maybe<TournamentCreateManyWithoutPlayerInput>;
+};
+
+export type PlayerCreateWithoutSeatInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  user: UserCreateOneWithoutPlayersInput;
+  buys?: Maybe<BuyCreateManyWithoutPlayerInput>;
+  tournaments?: Maybe<TournamentCreateManyWithoutPlayerInput>;
+};
+
+export type PlayerCreateWithoutTournamentsInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  user: UserCreateOneWithoutPlayersInput;
+  buys?: Maybe<BuyCreateManyWithoutPlayerInput>;
+  seat?: Maybe<SeatCreateOneWithoutPlayerInput>;
 };
 
 export type PlayerCreateWithoutUserInput = {
@@ -689,6 +888,8 @@ export type PlayerCreateWithoutUserInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   name?: Maybe<Scalars['String']>;
   buys?: Maybe<BuyCreateManyWithoutPlayerInput>;
+  seat?: Maybe<SeatCreateOneWithoutPlayerInput>;
+  tournaments?: Maybe<TournamentCreateManyWithoutPlayerInput>;
 };
 
 export type PlayerFilter = {
@@ -704,6 +905,7 @@ export type PlayerScalarWhereInput = {
   userId?: Maybe<StringFilter>;
   name?: Maybe<NullableStringFilter>;
   buys?: Maybe<BuyFilter>;
+  tournaments?: Maybe<TournamentFilter>;
   AND?: Maybe<Array<PlayerScalarWhereInput>>;
   OR?: Maybe<Array<PlayerScalarWhereInput>>;
   NOT?: Maybe<Array<PlayerScalarWhereInput>>;
@@ -733,6 +935,13 @@ export type PlayerUpdateManyWithWhereNestedInput = {
   data: PlayerUpdateManyDataInput;
 };
 
+export type PlayerUpdateOneRequiredWithoutSeatInput = {
+  create?: Maybe<PlayerCreateWithoutSeatInput>;
+  connect?: Maybe<PlayerWhereUniqueInput>;
+  update?: Maybe<PlayerUpdateWithoutSeatDataInput>;
+  upsert?: Maybe<PlayerUpsertWithoutSeatInput>;
+};
+
 export type PlayerUpdateOneWithoutBuysInput = {
   create?: Maybe<PlayerCreateWithoutBuysInput>;
   connect?: Maybe<PlayerWhereUniqueInput>;
@@ -742,12 +951,43 @@ export type PlayerUpdateOneWithoutBuysInput = {
   upsert?: Maybe<PlayerUpsertWithoutBuysInput>;
 };
 
+export type PlayerUpdateOneWithoutTournamentsInput = {
+  create?: Maybe<PlayerCreateWithoutTournamentsInput>;
+  connect?: Maybe<PlayerWhereUniqueInput>;
+  disconnect?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
+  update?: Maybe<PlayerUpdateWithoutTournamentsDataInput>;
+  upsert?: Maybe<PlayerUpsertWithoutTournamentsInput>;
+};
+
 export type PlayerUpdateWithoutBuysDataInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   name?: Maybe<Scalars['String']>;
   user?: Maybe<UserUpdateOneRequiredWithoutPlayersInput>;
+  seat?: Maybe<SeatUpdateOneWithoutPlayerInput>;
+  tournaments?: Maybe<TournamentUpdateManyWithoutPlayerInput>;
+};
+
+export type PlayerUpdateWithoutSeatDataInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  user?: Maybe<UserUpdateOneRequiredWithoutPlayersInput>;
+  buys?: Maybe<BuyUpdateManyWithoutPlayerInput>;
+  tournaments?: Maybe<TournamentUpdateManyWithoutPlayerInput>;
+};
+
+export type PlayerUpdateWithoutTournamentsDataInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  user?: Maybe<UserUpdateOneRequiredWithoutPlayersInput>;
+  buys?: Maybe<BuyUpdateManyWithoutPlayerInput>;
+  seat?: Maybe<SeatUpdateOneWithoutPlayerInput>;
 };
 
 export type PlayerUpdateWithoutUserDataInput = {
@@ -756,6 +996,8 @@ export type PlayerUpdateWithoutUserDataInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   name?: Maybe<Scalars['String']>;
   buys?: Maybe<BuyUpdateManyWithoutPlayerInput>;
+  seat?: Maybe<SeatUpdateOneWithoutPlayerInput>;
+  tournaments?: Maybe<TournamentUpdateManyWithoutPlayerInput>;
 };
 
 export type PlayerUpdateWithWhereUniqueWithoutUserInput = {
@@ -766,6 +1008,16 @@ export type PlayerUpdateWithWhereUniqueWithoutUserInput = {
 export type PlayerUpsertWithoutBuysInput = {
   update: PlayerUpdateWithoutBuysDataInput;
   create: PlayerCreateWithoutBuysInput;
+};
+
+export type PlayerUpsertWithoutSeatInput = {
+  update: PlayerUpdateWithoutSeatDataInput;
+  create: PlayerCreateWithoutSeatInput;
+};
+
+export type PlayerUpsertWithoutTournamentsInput = {
+  update: PlayerUpdateWithoutTournamentsDataInput;
+  create: PlayerCreateWithoutTournamentsInput;
 };
 
 export type PlayerUpsertWithWhereUniqueWithoutUserInput = {
@@ -781,10 +1033,12 @@ export type PlayerWhereInput = {
   userId?: Maybe<StringFilter>;
   name?: Maybe<NullableStringFilter>;
   buys?: Maybe<BuyFilter>;
+  tournaments?: Maybe<TournamentFilter>;
   AND?: Maybe<Array<PlayerWhereInput>>;
   OR?: Maybe<Array<PlayerWhereInput>>;
   NOT?: Maybe<Array<PlayerWhereInput>>;
   user?: Maybe<UserWhereInput>;
+  seat?: Maybe<SeatWhereInput>;
 };
 
 export type PlayerWhereUniqueInput = {
@@ -796,6 +1050,8 @@ export type Query = {
   allUsers?: Maybe<Array<User>>;
   user?: Maybe<User>;
   users: Array<User>;
+  tournament?: Maybe<Tournament>;
+  tournaments: Array<Tournament>;
 };
 
 
@@ -811,6 +1067,155 @@ export type QueryUsersArgs = {
   after?: Maybe<UserWhereUniqueInput>;
 };
 
+
+export type QueryTournamentArgs = {
+  where: TournamentWhereUniqueInput;
+};
+
+
+export type QueryTournamentsArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<TournamentWhereUniqueInput>;
+  after?: Maybe<TournamentWhereUniqueInput>;
+};
+
+export type SeatCreateManyWithoutTableInput = {
+  create?: Maybe<Array<SeatCreateWithoutTableInput>>;
+  connect?: Maybe<Array<SeatWhereUniqueInput>>;
+};
+
+export type SeatCreateOneWithoutPlayerInput = {
+  create?: Maybe<SeatCreateWithoutPlayerInput>;
+  connect?: Maybe<SeatWhereUniqueInput>;
+};
+
+export type SeatCreateWithoutPlayerInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  number?: Maybe<Scalars['Int']>;
+  table: TableCreateOneWithoutSeatsInput;
+};
+
+export type SeatCreateWithoutTableInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  number?: Maybe<Scalars['Int']>;
+  player: PlayerCreateOneWithoutSeatInput;
+};
+
+export type SeatFilter = {
+  every?: Maybe<SeatWhereInput>;
+  some?: Maybe<SeatWhereInput>;
+  none?: Maybe<SeatWhereInput>;
+};
+
+export type SeatScalarWhereInput = {
+  id?: Maybe<UuidFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+  number?: Maybe<IntFilter>;
+  playerId?: Maybe<StringFilter>;
+  tableId?: Maybe<StringFilter>;
+  AND?: Maybe<Array<SeatScalarWhereInput>>;
+  OR?: Maybe<Array<SeatScalarWhereInput>>;
+  NOT?: Maybe<Array<SeatScalarWhereInput>>;
+};
+
+export type SeatUpdateManyDataInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  number?: Maybe<Scalars['Int']>;
+};
+
+export type SeatUpdateManyWithoutTableInput = {
+  create?: Maybe<Array<SeatCreateWithoutTableInput>>;
+  connect?: Maybe<Array<SeatWhereUniqueInput>>;
+  set?: Maybe<Array<SeatWhereUniqueInput>>;
+  disconnect?: Maybe<Array<SeatWhereUniqueInput>>;
+  delete?: Maybe<Array<SeatWhereUniqueInput>>;
+  update?: Maybe<Array<SeatUpdateWithWhereUniqueWithoutTableInput>>;
+  updateMany?: Maybe<Array<SeatUpdateManyWithWhereNestedInput>>;
+  deleteMany?: Maybe<Array<SeatScalarWhereInput>>;
+  upsert?: Maybe<Array<SeatUpsertWithWhereUniqueWithoutTableInput>>;
+};
+
+export type SeatUpdateManyWithWhereNestedInput = {
+  where: SeatScalarWhereInput;
+  data: SeatUpdateManyDataInput;
+};
+
+export type SeatUpdateOneWithoutPlayerInput = {
+  create?: Maybe<SeatCreateWithoutPlayerInput>;
+  connect?: Maybe<SeatWhereUniqueInput>;
+  disconnect?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
+  update?: Maybe<SeatUpdateWithoutPlayerDataInput>;
+  upsert?: Maybe<SeatUpsertWithoutPlayerInput>;
+};
+
+export type SeatUpdateWithoutPlayerDataInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  number?: Maybe<Scalars['Int']>;
+  table?: Maybe<TableUpdateOneRequiredWithoutSeatsInput>;
+};
+
+export type SeatUpdateWithoutTableDataInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  number?: Maybe<Scalars['Int']>;
+  player?: Maybe<PlayerUpdateOneRequiredWithoutSeatInput>;
+};
+
+export type SeatUpdateWithWhereUniqueWithoutTableInput = {
+  where: SeatWhereUniqueInput;
+  data: SeatUpdateWithoutTableDataInput;
+};
+
+export type SeatUpsertWithoutPlayerInput = {
+  update: SeatUpdateWithoutPlayerDataInput;
+  create: SeatCreateWithoutPlayerInput;
+};
+
+export type SeatUpsertWithWhereUniqueWithoutTableInput = {
+  where: SeatWhereUniqueInput;
+  update: SeatUpdateWithoutTableDataInput;
+  create: SeatCreateWithoutTableInput;
+};
+
+export type SeatWhereInput = {
+  id?: Maybe<UuidFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+  number?: Maybe<IntFilter>;
+  playerId?: Maybe<StringFilter>;
+  tableId?: Maybe<StringFilter>;
+  AND?: Maybe<Array<SeatWhereInput>>;
+  OR?: Maybe<Array<SeatWhereInput>>;
+  NOT?: Maybe<Array<SeatWhereInput>>;
+  player?: Maybe<PlayerWhereInput>;
+  table?: Maybe<TableWhereInput>;
+};
+
+export type SeatWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
+export type Segment = {
+  __typename?: 'Segment';
+  duration: Scalars['Int'];
+  ante?: Maybe<Scalars['Int']>;
+  sBlind?: Maybe<Scalars['Int']>;
+  bBlind?: Maybe<Scalars['Int']>;
+  game: Game;
+};
+
 export type SegmentCreateManyWithoutTournamentInput = {
   create?: Maybe<Array<SegmentCreateWithoutTournamentInput>>;
   connect?: Maybe<Array<SegmentWhereUniqueInput>>;
@@ -820,11 +1225,11 @@ export type SegmentCreateWithoutTournamentInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  duration: Scalars['Int'];
-  sBlind: Scalars['Int'];
-  bBlind: Scalars['Int'];
-  ante: Scalars['Int'];
-  game: Scalars['String'];
+  duration?: Maybe<Scalars['Int']>;
+  sBlind?: Maybe<Scalars['Int']>;
+  bBlind?: Maybe<Scalars['Int']>;
+  ante?: Maybe<Scalars['Int']>;
+  game?: Maybe<Game>;
 };
 
 export type SegmentFilter = {
@@ -839,10 +1244,10 @@ export type SegmentScalarWhereInput = {
   updatedAt?: Maybe<DateTimeFilter>;
   tournamentId?: Maybe<StringFilter>;
   duration?: Maybe<IntFilter>;
-  sBlind?: Maybe<IntFilter>;
-  bBlind?: Maybe<IntFilter>;
-  ante?: Maybe<IntFilter>;
-  game?: Maybe<StringFilter>;
+  sBlind?: Maybe<NullableIntFilter>;
+  bBlind?: Maybe<NullableIntFilter>;
+  ante?: Maybe<NullableIntFilter>;
+  game?: Maybe<Game>;
   AND?: Maybe<Array<SegmentScalarWhereInput>>;
   OR?: Maybe<Array<SegmentScalarWhereInput>>;
   NOT?: Maybe<Array<SegmentScalarWhereInput>>;
@@ -856,7 +1261,7 @@ export type SegmentUpdateManyDataInput = {
   sBlind?: Maybe<Scalars['Int']>;
   bBlind?: Maybe<Scalars['Int']>;
   ante?: Maybe<Scalars['Int']>;
-  game?: Maybe<Scalars['String']>;
+  game?: Maybe<Game>;
 };
 
 export type SegmentUpdateManyWithoutTournamentInput = {
@@ -884,7 +1289,7 @@ export type SegmentUpdateWithoutTournamentDataInput = {
   sBlind?: Maybe<Scalars['Int']>;
   bBlind?: Maybe<Scalars['Int']>;
   ante?: Maybe<Scalars['Int']>;
-  game?: Maybe<Scalars['String']>;
+  game?: Maybe<Game>;
 };
 
 export type SegmentUpdateWithWhereUniqueWithoutTournamentInput = {
@@ -904,10 +1309,10 @@ export type SegmentWhereInput = {
   updatedAt?: Maybe<DateTimeFilter>;
   tournamentId?: Maybe<StringFilter>;
   duration?: Maybe<IntFilter>;
-  sBlind?: Maybe<IntFilter>;
-  bBlind?: Maybe<IntFilter>;
-  ante?: Maybe<IntFilter>;
-  game?: Maybe<StringFilter>;
+  sBlind?: Maybe<NullableIntFilter>;
+  bBlind?: Maybe<NullableIntFilter>;
+  ante?: Maybe<NullableIntFilter>;
+  game?: Maybe<Game>;
   AND?: Maybe<Array<SegmentWhereInput>>;
   OR?: Maybe<Array<SegmentWhereInput>>;
   NOT?: Maybe<Array<SegmentWhereInput>>;
@@ -932,6 +1337,235 @@ export type StringFilter = {
   endsWith?: Maybe<Scalars['String']>;
 };
 
+export type Table = {
+  __typename?: 'Table';
+  name: Scalars['String'];
+};
+
+export type TableCreateManyWithoutTournamentInput = {
+  create?: Maybe<Array<TableCreateWithoutTournamentInput>>;
+  connect?: Maybe<Array<TableWhereUniqueInput>>;
+};
+
+export type TableCreateOneWithoutSeatsInput = {
+  create?: Maybe<TableCreateWithoutSeatsInput>;
+  connect?: Maybe<TableWhereUniqueInput>;
+};
+
+export type TableCreateWithoutSeatsInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  tournament: TournamentCreateOneWithoutTablesInput;
+};
+
+export type TableCreateWithoutTournamentInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  seats?: Maybe<SeatCreateManyWithoutTableInput>;
+};
+
+export type TableFilter = {
+  every?: Maybe<TableWhereInput>;
+  some?: Maybe<TableWhereInput>;
+  none?: Maybe<TableWhereInput>;
+};
+
+export type TableScalarWhereInput = {
+  id?: Maybe<UuidFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+  name?: Maybe<StringFilter>;
+  seats?: Maybe<SeatFilter>;
+  tournamentId?: Maybe<StringFilter>;
+  AND?: Maybe<Array<TableScalarWhereInput>>;
+  OR?: Maybe<Array<TableScalarWhereInput>>;
+  NOT?: Maybe<Array<TableScalarWhereInput>>;
+};
+
+export type TableUpdateManyDataInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type TableUpdateManyWithoutTournamentInput = {
+  create?: Maybe<Array<TableCreateWithoutTournamentInput>>;
+  connect?: Maybe<Array<TableWhereUniqueInput>>;
+  set?: Maybe<Array<TableWhereUniqueInput>>;
+  disconnect?: Maybe<Array<TableWhereUniqueInput>>;
+  delete?: Maybe<Array<TableWhereUniqueInput>>;
+  update?: Maybe<Array<TableUpdateWithWhereUniqueWithoutTournamentInput>>;
+  updateMany?: Maybe<Array<TableUpdateManyWithWhereNestedInput>>;
+  deleteMany?: Maybe<Array<TableScalarWhereInput>>;
+  upsert?: Maybe<Array<TableUpsertWithWhereUniqueWithoutTournamentInput>>;
+};
+
+export type TableUpdateManyWithWhereNestedInput = {
+  where: TableScalarWhereInput;
+  data: TableUpdateManyDataInput;
+};
+
+export type TableUpdateOneRequiredWithoutSeatsInput = {
+  create?: Maybe<TableCreateWithoutSeatsInput>;
+  connect?: Maybe<TableWhereUniqueInput>;
+  update?: Maybe<TableUpdateWithoutSeatsDataInput>;
+  upsert?: Maybe<TableUpsertWithoutSeatsInput>;
+};
+
+export type TableUpdateWithoutSeatsDataInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  tournament?: Maybe<TournamentUpdateOneRequiredWithoutTablesInput>;
+};
+
+export type TableUpdateWithoutTournamentDataInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  seats?: Maybe<SeatUpdateManyWithoutTableInput>;
+};
+
+export type TableUpdateWithWhereUniqueWithoutTournamentInput = {
+  where: TableWhereUniqueInput;
+  data: TableUpdateWithoutTournamentDataInput;
+};
+
+export type TableUpsertWithoutSeatsInput = {
+  update: TableUpdateWithoutSeatsDataInput;
+  create: TableCreateWithoutSeatsInput;
+};
+
+export type TableUpsertWithWhereUniqueWithoutTournamentInput = {
+  where: TableWhereUniqueInput;
+  update: TableUpdateWithoutTournamentDataInput;
+  create: TableCreateWithoutTournamentInput;
+};
+
+export type TableWhereInput = {
+  id?: Maybe<UuidFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+  name?: Maybe<StringFilter>;
+  seats?: Maybe<SeatFilter>;
+  tournamentId?: Maybe<StringFilter>;
+  AND?: Maybe<Array<TableWhereInput>>;
+  OR?: Maybe<Array<TableWhereInput>>;
+  NOT?: Maybe<Array<TableWhereInput>>;
+  tournament?: Maybe<TournamentWhereInput>;
+};
+
+export type TableWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
+export type Tag = {
+  __typename?: 'Tag';
+  name: Scalars['String'];
+};
+
+export type TagCreateManyWithoutTournamentInput = {
+  create?: Maybe<Array<TagCreateWithoutTournamentInput>>;
+  connect?: Maybe<Array<TagWhereUniqueInput>>;
+};
+
+export type TagCreateWithoutTournamentInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type TagFilter = {
+  every?: Maybe<TagWhereInput>;
+  some?: Maybe<TagWhereInput>;
+  none?: Maybe<TagWhereInput>;
+};
+
+export type TagScalarWhereInput = {
+  id?: Maybe<UuidFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+  name?: Maybe<StringFilter>;
+  tournamentId?: Maybe<StringFilter>;
+  AND?: Maybe<Array<TagScalarWhereInput>>;
+  OR?: Maybe<Array<TagScalarWhereInput>>;
+  NOT?: Maybe<Array<TagScalarWhereInput>>;
+};
+
+export type TagUpdateManyDataInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type TagUpdateManyWithoutTournamentInput = {
+  create?: Maybe<Array<TagCreateWithoutTournamentInput>>;
+  connect?: Maybe<Array<TagWhereUniqueInput>>;
+  set?: Maybe<Array<TagWhereUniqueInput>>;
+  disconnect?: Maybe<Array<TagWhereUniqueInput>>;
+  delete?: Maybe<Array<TagWhereUniqueInput>>;
+  update?: Maybe<Array<TagUpdateWithWhereUniqueWithoutTournamentInput>>;
+  updateMany?: Maybe<Array<TagUpdateManyWithWhereNestedInput>>;
+  deleteMany?: Maybe<Array<TagScalarWhereInput>>;
+  upsert?: Maybe<Array<TagUpsertWithWhereUniqueWithoutTournamentInput>>;
+};
+
+export type TagUpdateManyWithWhereNestedInput = {
+  where: TagScalarWhereInput;
+  data: TagUpdateManyDataInput;
+};
+
+export type TagUpdateWithoutTournamentDataInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type TagUpdateWithWhereUniqueWithoutTournamentInput = {
+  where: TagWhereUniqueInput;
+  data: TagUpdateWithoutTournamentDataInput;
+};
+
+export type TagUpsertWithWhereUniqueWithoutTournamentInput = {
+  where: TagWhereUniqueInput;
+  update: TagUpdateWithoutTournamentDataInput;
+  create: TagCreateWithoutTournamentInput;
+};
+
+export type TagWhereInput = {
+  id?: Maybe<UuidFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+  name?: Maybe<StringFilter>;
+  tournamentId?: Maybe<StringFilter>;
+  AND?: Maybe<Array<TagWhereInput>>;
+  OR?: Maybe<Array<TagWhereInput>>;
+  NOT?: Maybe<Array<TagWhereInput>>;
+  tournament?: Maybe<TournamentWhereInput>;
+};
+
+export type TagWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+};
+
+export type Timer = {
+  __typename?: 'Timer';
+  active: Scalars['Boolean'];
+  elapsed: Scalars['Int'];
+  updatedAt: Scalars['DateTime'];
+  endOfRoundSpeech?: Maybe<Scalars['String']>;
+};
+
 export type TimerCreateOneWithoutTournamentInput = {
   create?: Maybe<TimerCreateWithoutTournamentInput>;
   connect?: Maybe<TimerWhereUniqueInput>;
@@ -941,13 +1575,13 @@ export type TimerCreateWithoutTournamentInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  active: Scalars['Boolean'];
-  elapsed: Scalars['Int'];
-  oneMinuteRemainingSpeech: Scalars['String'];
-  playOneMinuteRemainingSound: Scalars['Boolean'];
-  endOfRoundSpeech: Scalars['String'];
-  playEndOfRoundSound: Scalars['Boolean'];
-  backgroundColor: Scalars['String'];
+  active?: Maybe<Scalars['Boolean']>;
+  elapsed?: Maybe<Scalars['Int']>;
+  oneMinuteRemainingSpeech?: Maybe<Scalars['String']>;
+  playOneMinuteRemainingSound?: Maybe<Scalars['Boolean']>;
+  endOfRoundSpeech?: Maybe<Scalars['String']>;
+  playEndOfRoundSound?: Maybe<Scalars['Boolean']>;
+  backgroundColor?: Maybe<Scalars['String']>;
 };
 
 export type TimerUpdateOneWithoutTournamentInput = {
@@ -984,11 +1618,11 @@ export type TimerWhereInput = {
   tournamentId?: Maybe<StringFilter>;
   active?: Maybe<BooleanFilter>;
   elapsed?: Maybe<IntFilter>;
-  oneMinuteRemainingSpeech?: Maybe<StringFilter>;
+  oneMinuteRemainingSpeech?: Maybe<NullableStringFilter>;
   playOneMinuteRemainingSound?: Maybe<BooleanFilter>;
-  endOfRoundSpeech?: Maybe<StringFilter>;
+  endOfRoundSpeech?: Maybe<NullableStringFilter>;
   playEndOfRoundSound?: Maybe<BooleanFilter>;
-  backgroundColor?: Maybe<StringFilter>;
+  backgroundColor?: Maybe<NullableStringFilter>;
   AND?: Maybe<Array<TimerWhereInput>>;
   OR?: Maybe<Array<TimerWhereInput>>;
   NOT?: Maybe<Array<TimerWhereInput>>;
@@ -997,6 +1631,58 @@ export type TimerWhereInput = {
 
 export type TimerWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
+};
+
+export type Tournament = {
+  __typename?: 'Tournament';
+  id: Scalars['String'];
+  title: Scalars['String'];
+  userId?: Maybe<Scalars['String']>;
+  segments: Array<Segment>;
+  chips: Array<Chip>;
+  costs: Array<Cost>;
+  game: Game;
+  subtitle?: Maybe<Scalars['String']>;
+  tags: Array<Tag>;
+  comments?: Maybe<Scalars['String']>;
+  timer?: Maybe<Timer>;
+};
+
+
+export type TournamentSegmentsArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<SegmentWhereUniqueInput>;
+  after?: Maybe<SegmentWhereUniqueInput>;
+};
+
+
+export type TournamentChipsArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<ChipWhereUniqueInput>;
+  after?: Maybe<ChipWhereUniqueInput>;
+};
+
+
+export type TournamentCostsArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<CostWhereUniqueInput>;
+  after?: Maybe<CostWhereUniqueInput>;
+};
+
+
+export type TournamentTagsArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<TagWhereUniqueInput>;
+  after?: Maybe<TagWhereUniqueInput>;
+};
+
+export type TournamentCreateManyWithoutPlayerInput = {
+  create?: Maybe<Array<TournamentCreateWithoutPlayerInput>>;
+  connect?: Maybe<Array<TournamentWhereUniqueInput>>;
 };
 
 export type TournamentCreateManyWithoutUserInput = {
@@ -1009,34 +1695,85 @@ export type TournamentCreateOneWithoutCostsInput = {
   connect?: Maybe<TournamentWhereUniqueInput>;
 };
 
+export type TournamentCreateOneWithoutTablesInput = {
+  create?: Maybe<TournamentCreateWithoutTablesInput>;
+  connect?: Maybe<TournamentWhereUniqueInput>;
+};
+
 export type TournamentCreateWithoutCostsInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  title: Scalars['String'];
-  subtitle: Scalars['String'];
-  comments: Scalars['String'];
-  game: Scalars['String'];
-  user?: Maybe<UserCreateOneWithoutTournamentsInput>;
+  title?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']>;
+  comments?: Maybe<Scalars['String']>;
+  childrenUpdatedAt?: Maybe<Scalars['DateTime']>;
+  game?: Maybe<Game>;
   segments?: Maybe<SegmentCreateManyWithoutTournamentInput>;
   chips?: Maybe<ChipCreateManyWithoutTournamentInput>;
   timer?: Maybe<TimerCreateOneWithoutTournamentInput>;
   payoutLevels?: Maybe<PayoutLevelCreateManyWithoutTournamentInput>;
+  tables?: Maybe<TableCreateManyWithoutTournamentInput>;
+  tags?: Maybe<TagCreateManyWithoutTournamentInput>;
+  User?: Maybe<UserCreateOneWithoutTournamentsInput>;
+  Player?: Maybe<PlayerCreateOneWithoutTournamentsInput>;
+};
+
+export type TournamentCreateWithoutPlayerInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  title?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']>;
+  comments?: Maybe<Scalars['String']>;
+  childrenUpdatedAt?: Maybe<Scalars['DateTime']>;
+  game?: Maybe<Game>;
+  segments?: Maybe<SegmentCreateManyWithoutTournamentInput>;
+  chips?: Maybe<ChipCreateManyWithoutTournamentInput>;
+  costs?: Maybe<CostCreateManyWithoutTournamentInput>;
+  timer?: Maybe<TimerCreateOneWithoutTournamentInput>;
+  payoutLevels?: Maybe<PayoutLevelCreateManyWithoutTournamentInput>;
+  tables?: Maybe<TableCreateManyWithoutTournamentInput>;
+  tags?: Maybe<TagCreateManyWithoutTournamentInput>;
+  User?: Maybe<UserCreateOneWithoutTournamentsInput>;
+};
+
+export type TournamentCreateWithoutTablesInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  title?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']>;
+  comments?: Maybe<Scalars['String']>;
+  childrenUpdatedAt?: Maybe<Scalars['DateTime']>;
+  game?: Maybe<Game>;
+  segments?: Maybe<SegmentCreateManyWithoutTournamentInput>;
+  chips?: Maybe<ChipCreateManyWithoutTournamentInput>;
+  costs?: Maybe<CostCreateManyWithoutTournamentInput>;
+  timer?: Maybe<TimerCreateOneWithoutTournamentInput>;
+  payoutLevels?: Maybe<PayoutLevelCreateManyWithoutTournamentInput>;
+  tags?: Maybe<TagCreateManyWithoutTournamentInput>;
+  User?: Maybe<UserCreateOneWithoutTournamentsInput>;
+  Player?: Maybe<PlayerCreateOneWithoutTournamentsInput>;
 };
 
 export type TournamentCreateWithoutUserInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  title: Scalars['String'];
-  subtitle: Scalars['String'];
-  comments: Scalars['String'];
-  game: Scalars['String'];
+  title?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']>;
+  comments?: Maybe<Scalars['String']>;
+  childrenUpdatedAt?: Maybe<Scalars['DateTime']>;
+  game?: Maybe<Game>;
   segments?: Maybe<SegmentCreateManyWithoutTournamentInput>;
   chips?: Maybe<ChipCreateManyWithoutTournamentInput>;
   costs?: Maybe<CostCreateManyWithoutTournamentInput>;
   timer?: Maybe<TimerCreateOneWithoutTournamentInput>;
   payoutLevels?: Maybe<PayoutLevelCreateManyWithoutTournamentInput>;
+  tables?: Maybe<TableCreateManyWithoutTournamentInput>;
+  tags?: Maybe<TagCreateManyWithoutTournamentInput>;
+  Player?: Maybe<PlayerCreateOneWithoutTournamentsInput>;
 };
 
 export type TournamentFilter = {
@@ -1049,15 +1786,19 @@ export type TournamentScalarWhereInput = {
   id?: Maybe<UuidFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
-  userId?: Maybe<NullableStringFilter>;
   title?: Maybe<StringFilter>;
-  subtitle?: Maybe<StringFilter>;
-  comments?: Maybe<StringFilter>;
-  game?: Maybe<StringFilter>;
+  subtitle?: Maybe<NullableStringFilter>;
+  comments?: Maybe<NullableStringFilter>;
   segments?: Maybe<SegmentFilter>;
   chips?: Maybe<ChipFilter>;
   costs?: Maybe<CostFilter>;
   payoutLevels?: Maybe<PayoutLevelFilter>;
+  childrenUpdatedAt?: Maybe<NullableDateTimeFilter>;
+  game?: Maybe<Game>;
+  tables?: Maybe<TableFilter>;
+  tags?: Maybe<TagFilter>;
+  userId?: Maybe<NullableStringFilter>;
+  playerId?: Maybe<NullableStringFilter>;
   AND?: Maybe<Array<TournamentScalarWhereInput>>;
   OR?: Maybe<Array<TournamentScalarWhereInput>>;
   NOT?: Maybe<Array<TournamentScalarWhereInput>>;
@@ -1070,7 +1811,20 @@ export type TournamentUpdateManyDataInput = {
   title?: Maybe<Scalars['String']>;
   subtitle?: Maybe<Scalars['String']>;
   comments?: Maybe<Scalars['String']>;
-  game?: Maybe<Scalars['String']>;
+  childrenUpdatedAt?: Maybe<Scalars['DateTime']>;
+  game?: Maybe<Game>;
+};
+
+export type TournamentUpdateManyWithoutPlayerInput = {
+  create?: Maybe<Array<TournamentCreateWithoutPlayerInput>>;
+  connect?: Maybe<Array<TournamentWhereUniqueInput>>;
+  set?: Maybe<Array<TournamentWhereUniqueInput>>;
+  disconnect?: Maybe<Array<TournamentWhereUniqueInput>>;
+  delete?: Maybe<Array<TournamentWhereUniqueInput>>;
+  update?: Maybe<Array<TournamentUpdateWithWhereUniqueWithoutPlayerInput>>;
+  updateMany?: Maybe<Array<TournamentUpdateManyWithWhereNestedInput>>;
+  deleteMany?: Maybe<Array<TournamentScalarWhereInput>>;
+  upsert?: Maybe<Array<TournamentUpsertWithWhereUniqueWithoutPlayerInput>>;
 };
 
 export type TournamentUpdateManyWithoutUserInput = {
@@ -1097,6 +1851,13 @@ export type TournamentUpdateOneRequiredWithoutCostsInput = {
   upsert?: Maybe<TournamentUpsertWithoutCostsInput>;
 };
 
+export type TournamentUpdateOneRequiredWithoutTablesInput = {
+  create?: Maybe<TournamentCreateWithoutTablesInput>;
+  connect?: Maybe<TournamentWhereUniqueInput>;
+  update?: Maybe<TournamentUpdateWithoutTablesDataInput>;
+  upsert?: Maybe<TournamentUpsertWithoutTablesInput>;
+};
+
 export type TournamentUpdateWithoutCostsDataInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -1104,12 +1865,54 @@ export type TournamentUpdateWithoutCostsDataInput = {
   title?: Maybe<Scalars['String']>;
   subtitle?: Maybe<Scalars['String']>;
   comments?: Maybe<Scalars['String']>;
-  game?: Maybe<Scalars['String']>;
-  user?: Maybe<UserUpdateOneWithoutTournamentsInput>;
+  childrenUpdatedAt?: Maybe<Scalars['DateTime']>;
+  game?: Maybe<Game>;
   segments?: Maybe<SegmentUpdateManyWithoutTournamentInput>;
   chips?: Maybe<ChipUpdateManyWithoutTournamentInput>;
   timer?: Maybe<TimerUpdateOneWithoutTournamentInput>;
   payoutLevels?: Maybe<PayoutLevelUpdateManyWithoutTournamentInput>;
+  tables?: Maybe<TableUpdateManyWithoutTournamentInput>;
+  tags?: Maybe<TagUpdateManyWithoutTournamentInput>;
+  User?: Maybe<UserUpdateOneWithoutTournamentsInput>;
+  Player?: Maybe<PlayerUpdateOneWithoutTournamentsInput>;
+};
+
+export type TournamentUpdateWithoutPlayerDataInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  title?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']>;
+  comments?: Maybe<Scalars['String']>;
+  childrenUpdatedAt?: Maybe<Scalars['DateTime']>;
+  game?: Maybe<Game>;
+  segments?: Maybe<SegmentUpdateManyWithoutTournamentInput>;
+  chips?: Maybe<ChipUpdateManyWithoutTournamentInput>;
+  costs?: Maybe<CostUpdateManyWithoutTournamentInput>;
+  timer?: Maybe<TimerUpdateOneWithoutTournamentInput>;
+  payoutLevels?: Maybe<PayoutLevelUpdateManyWithoutTournamentInput>;
+  tables?: Maybe<TableUpdateManyWithoutTournamentInput>;
+  tags?: Maybe<TagUpdateManyWithoutTournamentInput>;
+  User?: Maybe<UserUpdateOneWithoutTournamentsInput>;
+};
+
+export type TournamentUpdateWithoutTablesDataInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  title?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']>;
+  comments?: Maybe<Scalars['String']>;
+  childrenUpdatedAt?: Maybe<Scalars['DateTime']>;
+  game?: Maybe<Game>;
+  segments?: Maybe<SegmentUpdateManyWithoutTournamentInput>;
+  chips?: Maybe<ChipUpdateManyWithoutTournamentInput>;
+  costs?: Maybe<CostUpdateManyWithoutTournamentInput>;
+  timer?: Maybe<TimerUpdateOneWithoutTournamentInput>;
+  payoutLevels?: Maybe<PayoutLevelUpdateManyWithoutTournamentInput>;
+  tags?: Maybe<TagUpdateManyWithoutTournamentInput>;
+  User?: Maybe<UserUpdateOneWithoutTournamentsInput>;
+  Player?: Maybe<PlayerUpdateOneWithoutTournamentsInput>;
 };
 
 export type TournamentUpdateWithoutUserDataInput = {
@@ -1119,12 +1922,21 @@ export type TournamentUpdateWithoutUserDataInput = {
   title?: Maybe<Scalars['String']>;
   subtitle?: Maybe<Scalars['String']>;
   comments?: Maybe<Scalars['String']>;
-  game?: Maybe<Scalars['String']>;
+  childrenUpdatedAt?: Maybe<Scalars['DateTime']>;
+  game?: Maybe<Game>;
   segments?: Maybe<SegmentUpdateManyWithoutTournamentInput>;
   chips?: Maybe<ChipUpdateManyWithoutTournamentInput>;
   costs?: Maybe<CostUpdateManyWithoutTournamentInput>;
   timer?: Maybe<TimerUpdateOneWithoutTournamentInput>;
   payoutLevels?: Maybe<PayoutLevelUpdateManyWithoutTournamentInput>;
+  tables?: Maybe<TableUpdateManyWithoutTournamentInput>;
+  tags?: Maybe<TagUpdateManyWithoutTournamentInput>;
+  Player?: Maybe<PlayerUpdateOneWithoutTournamentsInput>;
+};
+
+export type TournamentUpdateWithWhereUniqueWithoutPlayerInput = {
+  where: TournamentWhereUniqueInput;
+  data: TournamentUpdateWithoutPlayerDataInput;
 };
 
 export type TournamentUpdateWithWhereUniqueWithoutUserInput = {
@@ -1137,6 +1949,17 @@ export type TournamentUpsertWithoutCostsInput = {
   create: TournamentCreateWithoutCostsInput;
 };
 
+export type TournamentUpsertWithoutTablesInput = {
+  update: TournamentUpdateWithoutTablesDataInput;
+  create: TournamentCreateWithoutTablesInput;
+};
+
+export type TournamentUpsertWithWhereUniqueWithoutPlayerInput = {
+  where: TournamentWhereUniqueInput;
+  update: TournamentUpdateWithoutPlayerDataInput;
+  create: TournamentCreateWithoutPlayerInput;
+};
+
 export type TournamentUpsertWithWhereUniqueWithoutUserInput = {
   where: TournamentWhereUniqueInput;
   update: TournamentUpdateWithoutUserDataInput;
@@ -1147,20 +1970,25 @@ export type TournamentWhereInput = {
   id?: Maybe<UuidFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
-  userId?: Maybe<NullableStringFilter>;
   title?: Maybe<StringFilter>;
-  subtitle?: Maybe<StringFilter>;
-  comments?: Maybe<StringFilter>;
-  game?: Maybe<StringFilter>;
+  subtitle?: Maybe<NullableStringFilter>;
+  comments?: Maybe<NullableStringFilter>;
   segments?: Maybe<SegmentFilter>;
   chips?: Maybe<ChipFilter>;
   costs?: Maybe<CostFilter>;
   payoutLevels?: Maybe<PayoutLevelFilter>;
+  childrenUpdatedAt?: Maybe<NullableDateTimeFilter>;
+  game?: Maybe<Game>;
+  tables?: Maybe<TableFilter>;
+  tags?: Maybe<TagFilter>;
+  userId?: Maybe<NullableStringFilter>;
+  playerId?: Maybe<NullableStringFilter>;
   AND?: Maybe<Array<TournamentWhereInput>>;
   OR?: Maybe<Array<TournamentWhereInput>>;
   NOT?: Maybe<Array<TournamentWhereInput>>;
-  user?: Maybe<UserWhereInput>;
   timer?: Maybe<TimerWhereInput>;
+  User?: Maybe<UserWhereInput>;
+  Player?: Maybe<PlayerWhereInput>;
 };
 
 export type TournamentWhereUniqueInput = {
@@ -1171,17 +1999,27 @@ export type User = {
   __typename?: 'User';
   id: Scalars['String'];
   name: Scalars['String'];
+  tournaments: Array<Tournament>;
+};
+
+
+export type UserTournamentsArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<TournamentWhereUniqueInput>;
+  after?: Maybe<TournamentWhereUniqueInput>;
 };
 
 export type UserCreateInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  name: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   credits?: Maybe<Scalars['Int']>;
   authProvider?: Maybe<AuthProviderCreateOneWithoutUserInput>;
   tournaments?: Maybe<TournamentCreateManyWithoutUserInput>;
   players?: Maybe<PlayerCreateManyWithoutUserInput>;
+  contacts?: Maybe<ContactCreateManyWithoutUserInput>;
 };
 
 export type UserCreateOneWithoutPlayersInput = {
@@ -1198,20 +2036,22 @@ export type UserCreateWithoutPlayersInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  name: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   credits?: Maybe<Scalars['Int']>;
   authProvider?: Maybe<AuthProviderCreateOneWithoutUserInput>;
   tournaments?: Maybe<TournamentCreateManyWithoutUserInput>;
+  contacts?: Maybe<ContactCreateManyWithoutUserInput>;
 };
 
 export type UserCreateWithoutTournamentsInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  name: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   credits?: Maybe<Scalars['Int']>;
   authProvider?: Maybe<AuthProviderCreateOneWithoutUserInput>;
   players?: Maybe<PlayerCreateManyWithoutUserInput>;
+  contacts?: Maybe<ContactCreateManyWithoutUserInput>;
 };
 
 export type UserUpdateInput = {
@@ -1223,6 +2063,7 @@ export type UserUpdateInput = {
   authProvider?: Maybe<AuthProviderUpdateOneWithoutUserInput>;
   tournaments?: Maybe<TournamentUpdateManyWithoutUserInput>;
   players?: Maybe<PlayerUpdateManyWithoutUserInput>;
+  contacts?: Maybe<ContactUpdateManyWithoutUserInput>;
 };
 
 export type UserUpdateManyMutationInput = {
@@ -1257,6 +2098,7 @@ export type UserUpdateWithoutPlayersDataInput = {
   credits?: Maybe<Scalars['Int']>;
   authProvider?: Maybe<AuthProviderUpdateOneWithoutUserInput>;
   tournaments?: Maybe<TournamentUpdateManyWithoutUserInput>;
+  contacts?: Maybe<ContactUpdateManyWithoutUserInput>;
 };
 
 export type UserUpdateWithoutTournamentsDataInput = {
@@ -1267,6 +2109,7 @@ export type UserUpdateWithoutTournamentsDataInput = {
   credits?: Maybe<Scalars['Int']>;
   authProvider?: Maybe<AuthProviderUpdateOneWithoutUserInput>;
   players?: Maybe<PlayerUpdateManyWithoutUserInput>;
+  contacts?: Maybe<ContactUpdateManyWithoutUserInput>;
 };
 
 export type UserUpsertWithoutPlayersInput = {
@@ -1280,13 +2123,14 @@ export type UserUpsertWithoutTournamentsInput = {
 };
 
 export type UserWhereInput = {
-  id?: Maybe<StringFilter>;
+  id?: Maybe<UuidFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
   name?: Maybe<StringFilter>;
-  credits?: Maybe<IntFilter>;
+  credits?: Maybe<NullableIntFilter>;
   tournaments?: Maybe<TournamentFilter>;
   players?: Maybe<PlayerFilter>;
+  contacts?: Maybe<ContactFilter>;
   AND?: Maybe<Array<UserWhereInput>>;
   OR?: Maybe<Array<UserWhereInput>>;
   NOT?: Maybe<Array<UserWhereInput>>;

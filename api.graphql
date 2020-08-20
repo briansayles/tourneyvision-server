@@ -103,6 +103,10 @@ input BooleanFilter {
   not: Boolean
 }
 
+type Buy {
+  id: String!
+}
+
 input BuyCreateManyWithoutCostInput {
   connect: [BuyWhereUniqueInput!]
   create: [BuyCreateWithoutCostInput!]
@@ -232,19 +236,25 @@ input BuyWhereUniqueInput {
   id: String
 }
 
+type Chip {
+  color: String!
+  denom: Int!
+  qtyAvailable: Int
+}
+
 input ChipCreateManyWithoutTournamentInput {
   connect: [ChipWhereUniqueInput!]
   create: [ChipCreateWithoutTournamentInput!]
 }
 
 input ChipCreateWithoutTournamentInput {
-  color: String!
+  color: String
   createdAt: DateTime
-  denom: Int!
+  denom: Int
   id: String
-  qtyAvailable: Int!
-  rimColor: String!
-  textColor: String!
+  qtyAvailable: Int
+  rimColor: String
+  textColor: String
   updatedAt: DateTime
 }
 
@@ -262,9 +272,9 @@ input ChipScalarWhereInput {
   id: UUIDFilter
   NOT: [ChipScalarWhereInput!]
   OR: [ChipScalarWhereInput!]
-  qtyAvailable: IntFilter
-  rimColor: StringFilter
-  textColor: StringFilter
+  qtyAvailable: NullableIntFilter
+  rimColor: NullableStringFilter
+  textColor: NullableStringFilter
   tournamentId: StringFilter
   updatedAt: DateTimeFilter
 }
@@ -327,9 +337,9 @@ input ChipWhereInput {
   id: UUIDFilter
   NOT: [ChipWhereInput!]
   OR: [ChipWhereInput!]
-  qtyAvailable: IntFilter
-  rimColor: StringFilter
-  textColor: StringFilter
+  qtyAvailable: NullableIntFilter
+  rimColor: NullableStringFilter
+  textColor: NullableStringFilter
   tournament: TournamentWhereInput
   tournamentId: StringFilter
   updatedAt: DateTimeFilter
@@ -337,6 +347,112 @@ input ChipWhereInput {
 
 input ChipWhereUniqueInput {
   id: String
+}
+
+input ContactCreateemailsInput {
+  set: [String!]
+}
+
+input ContactCreateManyWithoutUserInput {
+  connect: [ContactWhereUniqueInput!]
+  create: [ContactCreateWithoutUserInput!]
+}
+
+input ContactCreatephonesInput {
+  set: [String!]
+}
+
+input ContactCreateWithoutUserInput {
+  emails: ContactCreateemailsInput
+  id: String
+  name: String
+  phones: ContactCreatephonesInput
+}
+
+input ContactFilter {
+  every: ContactWhereInput
+  none: ContactWhereInput
+  some: ContactWhereInput
+}
+
+input ContactScalarWhereInput {
+  AND: [ContactScalarWhereInput!]
+  id: StringFilter
+  name: StringFilter
+  NOT: [ContactScalarWhereInput!]
+  OR: [ContactScalarWhereInput!]
+  userId: StringFilter
+}
+
+input ContactUpdateemailsInput {
+  set: [String!]
+}
+
+input ContactUpdateManyDataInput {
+  emails: ContactUpdateemailsInput
+  id: String
+  name: String
+  phones: ContactUpdatephonesInput
+}
+
+input ContactUpdateManyWithoutUserInput {
+  connect: [ContactWhereUniqueInput!]
+  create: [ContactCreateWithoutUserInput!]
+  delete: [ContactWhereUniqueInput!]
+  deleteMany: [ContactScalarWhereInput!]
+  disconnect: [ContactWhereUniqueInput!]
+  set: [ContactWhereUniqueInput!]
+  update: [ContactUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [ContactUpdateManyWithWhereNestedInput!]
+  upsert: [ContactUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input ContactUpdateManyWithWhereNestedInput {
+  data: ContactUpdateManyDataInput!
+  where: ContactScalarWhereInput!
+}
+
+input ContactUpdatephonesInput {
+  set: [String!]
+}
+
+input ContactUpdateWithoutUserDataInput {
+  emails: ContactUpdateemailsInput
+  id: String
+  name: String
+  phones: ContactUpdatephonesInput
+}
+
+input ContactUpdateWithWhereUniqueWithoutUserInput {
+  data: ContactUpdateWithoutUserDataInput!
+  where: ContactWhereUniqueInput!
+}
+
+input ContactUpsertWithWhereUniqueWithoutUserInput {
+  create: ContactCreateWithoutUserInput!
+  update: ContactUpdateWithoutUserDataInput!
+  where: ContactWhereUniqueInput!
+}
+
+input ContactWhereInput {
+  AND: [ContactWhereInput!]
+  id: StringFilter
+  name: StringFilter
+  NOT: [ContactWhereInput!]
+  OR: [ContactWhereInput!]
+  user: UserWhereInput
+  userId: StringFilter
+}
+
+input ContactWhereUniqueInput {
+  id: String
+}
+
+type Cost {
+  buys(after: BuyWhereUniqueInput, before: BuyWhereUniqueInput, first: Int, last: Int): [Buy!]!
+  chipStack: Int!
+  costType: CostType!
+  price: Int!
 }
 
 input CostCreateManyWithoutTournamentInput {
@@ -350,22 +466,22 @@ input CostCreateOneWithoutBuysInput {
 }
 
 input CostCreateWithoutBuysInput {
-  chipStack: Int!
-  costType: String!
+  chipStack: Int
+  costType: CostType
   createdAt: DateTime
   id: String
-  price: Int!
+  price: Int
   tournament: TournamentCreateOneWithoutCostsInput!
   updatedAt: DateTime
 }
 
 input CostCreateWithoutTournamentInput {
   buys: BuyCreateManyWithoutCostInput
-  chipStack: Int!
-  costType: String!
+  chipStack: Int
+  costType: CostType
   createdAt: DateTime
   id: String
-  price: Int!
+  price: Int
   updatedAt: DateTime
 }
 
@@ -379,7 +495,7 @@ input CostScalarWhereInput {
   AND: [CostScalarWhereInput!]
   buys: BuyFilter
   chipStack: IntFilter
-  costType: StringFilter
+  costType: CostType
   createdAt: DateTimeFilter
   id: UUIDFilter
   NOT: [CostScalarWhereInput!]
@@ -389,9 +505,18 @@ input CostScalarWhereInput {
   updatedAt: DateTimeFilter
 }
 
+enum CostType {
+  Addon
+  Bounty
+  Buyin
+  Charity
+  House
+  Rebuy
+}
+
 input CostUpdateManyDataInput {
   chipStack: Int
-  costType: String
+  costType: CostType
   createdAt: DateTime
   id: String
   price: Int
@@ -424,7 +549,7 @@ input CostUpdateOneRequiredWithoutBuysInput {
 
 input CostUpdateWithoutBuysDataInput {
   chipStack: Int
-  costType: String
+  costType: CostType
   createdAt: DateTime
   id: String
   price: Int
@@ -435,7 +560,7 @@ input CostUpdateWithoutBuysDataInput {
 input CostUpdateWithoutTournamentDataInput {
   buys: BuyUpdateManyWithoutCostInput
   chipStack: Int
-  costType: String
+  costType: CostType
   createdAt: DateTime
   id: String
   price: Int
@@ -462,7 +587,7 @@ input CostWhereInput {
   AND: [CostWhereInput!]
   buys: BuyFilter
   chipStack: IntFilter
-  costType: StringFilter
+  costType: CostType
   createdAt: DateTimeFilter
   id: UUIDFilter
   NOT: [CostWhereInput!]
@@ -495,6 +620,16 @@ input DateTimeFilter {
   notIn: [DateTime!]
 }
 
+enum Game {
+  CAP
+  HORSE
+  HOSE
+  L7S
+  LHE
+  NLHE
+  PLO
+}
+
 input IntFilter {
   equals: Int
   gt: Int
@@ -512,12 +647,33 @@ The `JSON` scalar type represents JSON objects as specified by [ECMA-404](http:/
 scalar Json
 
 type Mutation {
-  bigRedButton: String
   createOneUser(data: UserCreateInput!): User!
   deleteManyUser(where: UserWhereInput): BatchPayload!
   deleteOneUser(where: UserWhereUniqueInput!): User
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+}
+
+input NullableDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
+}
+
+input NullableIntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
 }
 
 input NullableStringFilter {
@@ -641,10 +797,42 @@ input PlayerCreateOneWithoutBuysInput {
   create: PlayerCreateWithoutBuysInput
 }
 
+input PlayerCreateOneWithoutSeatInput {
+  connect: PlayerWhereUniqueInput
+  create: PlayerCreateWithoutSeatInput
+}
+
+input PlayerCreateOneWithoutTournamentsInput {
+  connect: PlayerWhereUniqueInput
+  create: PlayerCreateWithoutTournamentsInput
+}
+
 input PlayerCreateWithoutBuysInput {
   createdAt: DateTime
   id: String
   name: String
+  seat: SeatCreateOneWithoutPlayerInput
+  tournaments: TournamentCreateManyWithoutPlayerInput
+  updatedAt: DateTime
+  user: UserCreateOneWithoutPlayersInput!
+}
+
+input PlayerCreateWithoutSeatInput {
+  buys: BuyCreateManyWithoutPlayerInput
+  createdAt: DateTime
+  id: String
+  name: String
+  tournaments: TournamentCreateManyWithoutPlayerInput
+  updatedAt: DateTime
+  user: UserCreateOneWithoutPlayersInput!
+}
+
+input PlayerCreateWithoutTournamentsInput {
+  buys: BuyCreateManyWithoutPlayerInput
+  createdAt: DateTime
+  id: String
+  name: String
+  seat: SeatCreateOneWithoutPlayerInput
   updatedAt: DateTime
   user: UserCreateOneWithoutPlayersInput!
 }
@@ -654,6 +842,8 @@ input PlayerCreateWithoutUserInput {
   createdAt: DateTime
   id: String
   name: String
+  seat: SeatCreateOneWithoutPlayerInput
+  tournaments: TournamentCreateManyWithoutPlayerInput
   updatedAt: DateTime
 }
 
@@ -671,6 +861,7 @@ input PlayerScalarWhereInput {
   name: NullableStringFilter
   NOT: [PlayerScalarWhereInput!]
   OR: [PlayerScalarWhereInput!]
+  tournaments: TournamentFilter
   updatedAt: DateTimeFilter
   userId: StringFilter
 }
@@ -699,6 +890,13 @@ input PlayerUpdateManyWithWhereNestedInput {
   where: PlayerScalarWhereInput!
 }
 
+input PlayerUpdateOneRequiredWithoutSeatInput {
+  connect: PlayerWhereUniqueInput
+  create: PlayerCreateWithoutSeatInput
+  update: PlayerUpdateWithoutSeatDataInput
+  upsert: PlayerUpsertWithoutSeatInput
+}
+
 input PlayerUpdateOneWithoutBuysInput {
   connect: PlayerWhereUniqueInput
   create: PlayerCreateWithoutBuysInput
@@ -708,10 +906,41 @@ input PlayerUpdateOneWithoutBuysInput {
   upsert: PlayerUpsertWithoutBuysInput
 }
 
+input PlayerUpdateOneWithoutTournamentsInput {
+  connect: PlayerWhereUniqueInput
+  create: PlayerCreateWithoutTournamentsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: PlayerUpdateWithoutTournamentsDataInput
+  upsert: PlayerUpsertWithoutTournamentsInput
+}
+
 input PlayerUpdateWithoutBuysDataInput {
   createdAt: DateTime
   id: String
   name: String
+  seat: SeatUpdateOneWithoutPlayerInput
+  tournaments: TournamentUpdateManyWithoutPlayerInput
+  updatedAt: DateTime
+  user: UserUpdateOneRequiredWithoutPlayersInput
+}
+
+input PlayerUpdateWithoutSeatDataInput {
+  buys: BuyUpdateManyWithoutPlayerInput
+  createdAt: DateTime
+  id: String
+  name: String
+  tournaments: TournamentUpdateManyWithoutPlayerInput
+  updatedAt: DateTime
+  user: UserUpdateOneRequiredWithoutPlayersInput
+}
+
+input PlayerUpdateWithoutTournamentsDataInput {
+  buys: BuyUpdateManyWithoutPlayerInput
+  createdAt: DateTime
+  id: String
+  name: String
+  seat: SeatUpdateOneWithoutPlayerInput
   updatedAt: DateTime
   user: UserUpdateOneRequiredWithoutPlayersInput
 }
@@ -721,6 +950,8 @@ input PlayerUpdateWithoutUserDataInput {
   createdAt: DateTime
   id: String
   name: String
+  seat: SeatUpdateOneWithoutPlayerInput
+  tournaments: TournamentUpdateManyWithoutPlayerInput
   updatedAt: DateTime
 }
 
@@ -732,6 +963,16 @@ input PlayerUpdateWithWhereUniqueWithoutUserInput {
 input PlayerUpsertWithoutBuysInput {
   create: PlayerCreateWithoutBuysInput!
   update: PlayerUpdateWithoutBuysDataInput!
+}
+
+input PlayerUpsertWithoutSeatInput {
+  create: PlayerCreateWithoutSeatInput!
+  update: PlayerUpdateWithoutSeatDataInput!
+}
+
+input PlayerUpsertWithoutTournamentsInput {
+  create: PlayerCreateWithoutTournamentsInput!
+  update: PlayerUpdateWithoutTournamentsDataInput!
 }
 
 input PlayerUpsertWithWhereUniqueWithoutUserInput {
@@ -748,6 +989,8 @@ input PlayerWhereInput {
   name: NullableStringFilter
   NOT: [PlayerWhereInput!]
   OR: [PlayerWhereInput!]
+  seat: SeatWhereInput
+  tournaments: TournamentFilter
   updatedAt: DateTimeFilter
   user: UserWhereInput
   userId: StringFilter
@@ -759,8 +1002,145 @@ input PlayerWhereUniqueInput {
 
 type Query {
   allUsers: [User!]
+  tournament(where: TournamentWhereUniqueInput!): Tournament
+  tournaments(after: TournamentWhereUniqueInput, before: TournamentWhereUniqueInput, first: Int, last: Int): [Tournament!]!
   user(where: UserWhereUniqueInput!): User
   users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
+}
+
+input SeatCreateManyWithoutTableInput {
+  connect: [SeatWhereUniqueInput!]
+  create: [SeatCreateWithoutTableInput!]
+}
+
+input SeatCreateOneWithoutPlayerInput {
+  connect: SeatWhereUniqueInput
+  create: SeatCreateWithoutPlayerInput
+}
+
+input SeatCreateWithoutPlayerInput {
+  createdAt: DateTime
+  id: String
+  number: Int
+  table: TableCreateOneWithoutSeatsInput!
+  updatedAt: DateTime
+}
+
+input SeatCreateWithoutTableInput {
+  createdAt: DateTime
+  id: String
+  number: Int
+  player: PlayerCreateOneWithoutSeatInput!
+  updatedAt: DateTime
+}
+
+input SeatFilter {
+  every: SeatWhereInput
+  none: SeatWhereInput
+  some: SeatWhereInput
+}
+
+input SeatScalarWhereInput {
+  AND: [SeatScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: UUIDFilter
+  NOT: [SeatScalarWhereInput!]
+  number: IntFilter
+  OR: [SeatScalarWhereInput!]
+  playerId: StringFilter
+  tableId: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input SeatUpdateManyDataInput {
+  createdAt: DateTime
+  id: String
+  number: Int
+  updatedAt: DateTime
+}
+
+input SeatUpdateManyWithoutTableInput {
+  connect: [SeatWhereUniqueInput!]
+  create: [SeatCreateWithoutTableInput!]
+  delete: [SeatWhereUniqueInput!]
+  deleteMany: [SeatScalarWhereInput!]
+  disconnect: [SeatWhereUniqueInput!]
+  set: [SeatWhereUniqueInput!]
+  update: [SeatUpdateWithWhereUniqueWithoutTableInput!]
+  updateMany: [SeatUpdateManyWithWhereNestedInput!]
+  upsert: [SeatUpsertWithWhereUniqueWithoutTableInput!]
+}
+
+input SeatUpdateManyWithWhereNestedInput {
+  data: SeatUpdateManyDataInput!
+  where: SeatScalarWhereInput!
+}
+
+input SeatUpdateOneWithoutPlayerInput {
+  connect: SeatWhereUniqueInput
+  create: SeatCreateWithoutPlayerInput
+  delete: Boolean
+  disconnect: Boolean
+  update: SeatUpdateWithoutPlayerDataInput
+  upsert: SeatUpsertWithoutPlayerInput
+}
+
+input SeatUpdateWithoutPlayerDataInput {
+  createdAt: DateTime
+  id: String
+  number: Int
+  table: TableUpdateOneRequiredWithoutSeatsInput
+  updatedAt: DateTime
+}
+
+input SeatUpdateWithoutTableDataInput {
+  createdAt: DateTime
+  id: String
+  number: Int
+  player: PlayerUpdateOneRequiredWithoutSeatInput
+  updatedAt: DateTime
+}
+
+input SeatUpdateWithWhereUniqueWithoutTableInput {
+  data: SeatUpdateWithoutTableDataInput!
+  where: SeatWhereUniqueInput!
+}
+
+input SeatUpsertWithoutPlayerInput {
+  create: SeatCreateWithoutPlayerInput!
+  update: SeatUpdateWithoutPlayerDataInput!
+}
+
+input SeatUpsertWithWhereUniqueWithoutTableInput {
+  create: SeatCreateWithoutTableInput!
+  update: SeatUpdateWithoutTableDataInput!
+  where: SeatWhereUniqueInput!
+}
+
+input SeatWhereInput {
+  AND: [SeatWhereInput!]
+  createdAt: DateTimeFilter
+  id: UUIDFilter
+  NOT: [SeatWhereInput!]
+  number: IntFilter
+  OR: [SeatWhereInput!]
+  player: PlayerWhereInput
+  playerId: StringFilter
+  table: TableWhereInput
+  tableId: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input SeatWhereUniqueInput {
+  id: String
+}
+
+type Segment {
+  ante: Int
+  bBlind: Int
+  duration: Int!
+  game: Game!
+  sBlind: Int
 }
 
 input SegmentCreateManyWithoutTournamentInput {
@@ -769,13 +1149,13 @@ input SegmentCreateManyWithoutTournamentInput {
 }
 
 input SegmentCreateWithoutTournamentInput {
-  ante: Int!
-  bBlind: Int!
+  ante: Int
+  bBlind: Int
   createdAt: DateTime
-  duration: Int!
-  game: String!
+  duration: Int
+  game: Game
   id: String
-  sBlind: Int!
+  sBlind: Int
   updatedAt: DateTime
 }
 
@@ -787,15 +1167,15 @@ input SegmentFilter {
 
 input SegmentScalarWhereInput {
   AND: [SegmentScalarWhereInput!]
-  ante: IntFilter
-  bBlind: IntFilter
+  ante: NullableIntFilter
+  bBlind: NullableIntFilter
   createdAt: DateTimeFilter
   duration: IntFilter
-  game: StringFilter
+  game: Game
   id: UUIDFilter
   NOT: [SegmentScalarWhereInput!]
   OR: [SegmentScalarWhereInput!]
-  sBlind: IntFilter
+  sBlind: NullableIntFilter
   tournamentId: StringFilter
   updatedAt: DateTimeFilter
 }
@@ -805,7 +1185,7 @@ input SegmentUpdateManyDataInput {
   bBlind: Int
   createdAt: DateTime
   duration: Int
-  game: String
+  game: Game
   id: String
   sBlind: Int
   updatedAt: DateTime
@@ -833,7 +1213,7 @@ input SegmentUpdateWithoutTournamentDataInput {
   bBlind: Int
   createdAt: DateTime
   duration: Int
-  game: String
+  game: Game
   id: String
   sBlind: Int
   updatedAt: DateTime
@@ -852,15 +1232,15 @@ input SegmentUpsertWithWhereUniqueWithoutTournamentInput {
 
 input SegmentWhereInput {
   AND: [SegmentWhereInput!]
-  ante: IntFilter
-  bBlind: IntFilter
+  ante: NullableIntFilter
+  bBlind: NullableIntFilter
   createdAt: DateTimeFilter
   duration: IntFilter
-  game: StringFilter
+  game: Game
   id: UUIDFilter
   NOT: [SegmentWhereInput!]
   OR: [SegmentWhereInput!]
-  sBlind: IntFilter
+  sBlind: NullableIntFilter
   tournament: TournamentWhereInput
   tournamentId: StringFilter
   updatedAt: DateTimeFilter
@@ -884,21 +1264,247 @@ input StringFilter {
   startsWith: String
 }
 
+type Table {
+  name: String!
+}
+
+input TableCreateManyWithoutTournamentInput {
+  connect: [TableWhereUniqueInput!]
+  create: [TableCreateWithoutTournamentInput!]
+}
+
+input TableCreateOneWithoutSeatsInput {
+  connect: TableWhereUniqueInput
+  create: TableCreateWithoutSeatsInput
+}
+
+input TableCreateWithoutSeatsInput {
+  createdAt: DateTime
+  id: String
+  name: String
+  tournament: TournamentCreateOneWithoutTablesInput!
+  updatedAt: DateTime
+}
+
+input TableCreateWithoutTournamentInput {
+  createdAt: DateTime
+  id: String
+  name: String
+  seats: SeatCreateManyWithoutTableInput
+  updatedAt: DateTime
+}
+
+input TableFilter {
+  every: TableWhereInput
+  none: TableWhereInput
+  some: TableWhereInput
+}
+
+input TableScalarWhereInput {
+  AND: [TableScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: UUIDFilter
+  name: StringFilter
+  NOT: [TableScalarWhereInput!]
+  OR: [TableScalarWhereInput!]
+  seats: SeatFilter
+  tournamentId: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input TableUpdateManyDataInput {
+  createdAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+input TableUpdateManyWithoutTournamentInput {
+  connect: [TableWhereUniqueInput!]
+  create: [TableCreateWithoutTournamentInput!]
+  delete: [TableWhereUniqueInput!]
+  deleteMany: [TableScalarWhereInput!]
+  disconnect: [TableWhereUniqueInput!]
+  set: [TableWhereUniqueInput!]
+  update: [TableUpdateWithWhereUniqueWithoutTournamentInput!]
+  updateMany: [TableUpdateManyWithWhereNestedInput!]
+  upsert: [TableUpsertWithWhereUniqueWithoutTournamentInput!]
+}
+
+input TableUpdateManyWithWhereNestedInput {
+  data: TableUpdateManyDataInput!
+  where: TableScalarWhereInput!
+}
+
+input TableUpdateOneRequiredWithoutSeatsInput {
+  connect: TableWhereUniqueInput
+  create: TableCreateWithoutSeatsInput
+  update: TableUpdateWithoutSeatsDataInput
+  upsert: TableUpsertWithoutSeatsInput
+}
+
+input TableUpdateWithoutSeatsDataInput {
+  createdAt: DateTime
+  id: String
+  name: String
+  tournament: TournamentUpdateOneRequiredWithoutTablesInput
+  updatedAt: DateTime
+}
+
+input TableUpdateWithoutTournamentDataInput {
+  createdAt: DateTime
+  id: String
+  name: String
+  seats: SeatUpdateManyWithoutTableInput
+  updatedAt: DateTime
+}
+
+input TableUpdateWithWhereUniqueWithoutTournamentInput {
+  data: TableUpdateWithoutTournamentDataInput!
+  where: TableWhereUniqueInput!
+}
+
+input TableUpsertWithoutSeatsInput {
+  create: TableCreateWithoutSeatsInput!
+  update: TableUpdateWithoutSeatsDataInput!
+}
+
+input TableUpsertWithWhereUniqueWithoutTournamentInput {
+  create: TableCreateWithoutTournamentInput!
+  update: TableUpdateWithoutTournamentDataInput!
+  where: TableWhereUniqueInput!
+}
+
+input TableWhereInput {
+  AND: [TableWhereInput!]
+  createdAt: DateTimeFilter
+  id: UUIDFilter
+  name: StringFilter
+  NOT: [TableWhereInput!]
+  OR: [TableWhereInput!]
+  seats: SeatFilter
+  tournament: TournamentWhereInput
+  tournamentId: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input TableWhereUniqueInput {
+  id: String
+}
+
+type Tag {
+  name: String!
+}
+
+input TagCreateManyWithoutTournamentInput {
+  connect: [TagWhereUniqueInput!]
+  create: [TagCreateWithoutTournamentInput!]
+}
+
+input TagCreateWithoutTournamentInput {
+  createdAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+input TagFilter {
+  every: TagWhereInput
+  none: TagWhereInput
+  some: TagWhereInput
+}
+
+input TagScalarWhereInput {
+  AND: [TagScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: UUIDFilter
+  name: StringFilter
+  NOT: [TagScalarWhereInput!]
+  OR: [TagScalarWhereInput!]
+  tournamentId: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input TagUpdateManyDataInput {
+  createdAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+input TagUpdateManyWithoutTournamentInput {
+  connect: [TagWhereUniqueInput!]
+  create: [TagCreateWithoutTournamentInput!]
+  delete: [TagWhereUniqueInput!]
+  deleteMany: [TagScalarWhereInput!]
+  disconnect: [TagWhereUniqueInput!]
+  set: [TagWhereUniqueInput!]
+  update: [TagUpdateWithWhereUniqueWithoutTournamentInput!]
+  updateMany: [TagUpdateManyWithWhereNestedInput!]
+  upsert: [TagUpsertWithWhereUniqueWithoutTournamentInput!]
+}
+
+input TagUpdateManyWithWhereNestedInput {
+  data: TagUpdateManyDataInput!
+  where: TagScalarWhereInput!
+}
+
+input TagUpdateWithoutTournamentDataInput {
+  createdAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+input TagUpdateWithWhereUniqueWithoutTournamentInput {
+  data: TagUpdateWithoutTournamentDataInput!
+  where: TagWhereUniqueInput!
+}
+
+input TagUpsertWithWhereUniqueWithoutTournamentInput {
+  create: TagCreateWithoutTournamentInput!
+  update: TagUpdateWithoutTournamentDataInput!
+  where: TagWhereUniqueInput!
+}
+
+input TagWhereInput {
+  AND: [TagWhereInput!]
+  createdAt: DateTimeFilter
+  id: UUIDFilter
+  name: StringFilter
+  NOT: [TagWhereInput!]
+  OR: [TagWhereInput!]
+  tournament: TournamentWhereInput
+  tournamentId: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input TagWhereUniqueInput {
+  id: String
+}
+
+type Timer {
+  active: Boolean!
+  elapsed: Int!
+  endOfRoundSpeech: String
+  updatedAt: DateTime!
+}
+
 input TimerCreateOneWithoutTournamentInput {
   connect: TimerWhereUniqueInput
   create: TimerCreateWithoutTournamentInput
 }
 
 input TimerCreateWithoutTournamentInput {
-  active: Boolean!
-  backgroundColor: String!
+  active: Boolean
+  backgroundColor: String
   createdAt: DateTime
-  elapsed: Int!
-  endOfRoundSpeech: String!
+  elapsed: Int
+  endOfRoundSpeech: String
   id: String
-  oneMinuteRemainingSpeech: String!
-  playEndOfRoundSound: Boolean!
-  playOneMinuteRemainingSound: Boolean!
+  oneMinuteRemainingSpeech: String
+  playEndOfRoundSound: Boolean
+  playOneMinuteRemainingSound: Boolean
   updatedAt: DateTime
 }
 
@@ -932,13 +1538,13 @@ input TimerUpsertWithoutTournamentInput {
 input TimerWhereInput {
   active: BooleanFilter
   AND: [TimerWhereInput!]
-  backgroundColor: StringFilter
+  backgroundColor: NullableStringFilter
   createdAt: DateTimeFilter
   elapsed: IntFilter
-  endOfRoundSpeech: StringFilter
+  endOfRoundSpeech: NullableStringFilter
   id: UUIDFilter
   NOT: [TimerWhereInput!]
-  oneMinuteRemainingSpeech: StringFilter
+  oneMinuteRemainingSpeech: NullableStringFilter
   OR: [TimerWhereInput!]
   playEndOfRoundSound: BooleanFilter
   playOneMinuteRemainingSound: BooleanFilter
@@ -951,6 +1557,25 @@ input TimerWhereUniqueInput {
   id: String
 }
 
+type Tournament {
+  chips(after: ChipWhereUniqueInput, before: ChipWhereUniqueInput, first: Int, last: Int): [Chip!]!
+  comments: String
+  costs(after: CostWhereUniqueInput, before: CostWhereUniqueInput, first: Int, last: Int): [Cost!]!
+  game: Game!
+  id: String!
+  segments(after: SegmentWhereUniqueInput, before: SegmentWhereUniqueInput, first: Int, last: Int): [Segment!]!
+  subtitle: String
+  tags(after: TagWhereUniqueInput, before: TagWhereUniqueInput, first: Int, last: Int): [Tag!]!
+  timer: Timer
+  title: String!
+  userId: String
+}
+
+input TournamentCreateManyWithoutPlayerInput {
+  connect: [TournamentWhereUniqueInput!]
+  create: [TournamentCreateWithoutPlayerInput!]
+}
+
 input TournamentCreateManyWithoutUserInput {
   connect: [TournamentWhereUniqueInput!]
   create: [TournamentCreateWithoutUserInput!]
@@ -961,33 +1586,84 @@ input TournamentCreateOneWithoutCostsInput {
   create: TournamentCreateWithoutCostsInput
 }
 
+input TournamentCreateOneWithoutTablesInput {
+  connect: TournamentWhereUniqueInput
+  create: TournamentCreateWithoutTablesInput
+}
+
 input TournamentCreateWithoutCostsInput {
+  childrenUpdatedAt: DateTime
   chips: ChipCreateManyWithoutTournamentInput
-  comments: String!
+  comments: String
   createdAt: DateTime
-  game: String!
+  game: Game
+  id: String
+  payoutLevels: PayoutLevelCreateManyWithoutTournamentInput
+  Player: PlayerCreateOneWithoutTournamentsInput
+  segments: SegmentCreateManyWithoutTournamentInput
+  subtitle: String
+  tables: TableCreateManyWithoutTournamentInput
+  tags: TagCreateManyWithoutTournamentInput
+  timer: TimerCreateOneWithoutTournamentInput
+  title: String
+  updatedAt: DateTime
+  User: UserCreateOneWithoutTournamentsInput
+}
+
+input TournamentCreateWithoutPlayerInput {
+  childrenUpdatedAt: DateTime
+  chips: ChipCreateManyWithoutTournamentInput
+  comments: String
+  costs: CostCreateManyWithoutTournamentInput
+  createdAt: DateTime
+  game: Game
   id: String
   payoutLevels: PayoutLevelCreateManyWithoutTournamentInput
   segments: SegmentCreateManyWithoutTournamentInput
-  subtitle: String!
+  subtitle: String
+  tables: TableCreateManyWithoutTournamentInput
+  tags: TagCreateManyWithoutTournamentInput
   timer: TimerCreateOneWithoutTournamentInput
-  title: String!
+  title: String
   updatedAt: DateTime
-  user: UserCreateOneWithoutTournamentsInput
+  User: UserCreateOneWithoutTournamentsInput
+}
+
+input TournamentCreateWithoutTablesInput {
+  childrenUpdatedAt: DateTime
+  chips: ChipCreateManyWithoutTournamentInput
+  comments: String
+  costs: CostCreateManyWithoutTournamentInput
+  createdAt: DateTime
+  game: Game
+  id: String
+  payoutLevels: PayoutLevelCreateManyWithoutTournamentInput
+  Player: PlayerCreateOneWithoutTournamentsInput
+  segments: SegmentCreateManyWithoutTournamentInput
+  subtitle: String
+  tags: TagCreateManyWithoutTournamentInput
+  timer: TimerCreateOneWithoutTournamentInput
+  title: String
+  updatedAt: DateTime
+  User: UserCreateOneWithoutTournamentsInput
 }
 
 input TournamentCreateWithoutUserInput {
+  childrenUpdatedAt: DateTime
   chips: ChipCreateManyWithoutTournamentInput
-  comments: String!
+  comments: String
   costs: CostCreateManyWithoutTournamentInput
   createdAt: DateTime
-  game: String!
+  game: Game
   id: String
   payoutLevels: PayoutLevelCreateManyWithoutTournamentInput
+  Player: PlayerCreateOneWithoutTournamentsInput
   segments: SegmentCreateManyWithoutTournamentInput
-  subtitle: String!
+  subtitle: String
+  tables: TableCreateManyWithoutTournamentInput
+  tags: TagCreateManyWithoutTournamentInput
   timer: TimerCreateOneWithoutTournamentInput
-  title: String!
+  title: String
   updatedAt: DateTime
 }
 
@@ -999,30 +1675,47 @@ input TournamentFilter {
 
 input TournamentScalarWhereInput {
   AND: [TournamentScalarWhereInput!]
+  childrenUpdatedAt: NullableDateTimeFilter
   chips: ChipFilter
-  comments: StringFilter
+  comments: NullableStringFilter
   costs: CostFilter
   createdAt: DateTimeFilter
-  game: StringFilter
+  game: Game
   id: UUIDFilter
   NOT: [TournamentScalarWhereInput!]
   OR: [TournamentScalarWhereInput!]
   payoutLevels: PayoutLevelFilter
+  playerId: NullableStringFilter
   segments: SegmentFilter
-  subtitle: StringFilter
+  subtitle: NullableStringFilter
+  tables: TableFilter
+  tags: TagFilter
   title: StringFilter
   updatedAt: DateTimeFilter
   userId: NullableStringFilter
 }
 
 input TournamentUpdateManyDataInput {
+  childrenUpdatedAt: DateTime
   comments: String
   createdAt: DateTime
-  game: String
+  game: Game
   id: String
   subtitle: String
   title: String
   updatedAt: DateTime
+}
+
+input TournamentUpdateManyWithoutPlayerInput {
+  connect: [TournamentWhereUniqueInput!]
+  create: [TournamentCreateWithoutPlayerInput!]
+  delete: [TournamentWhereUniqueInput!]
+  deleteMany: [TournamentScalarWhereInput!]
+  disconnect: [TournamentWhereUniqueInput!]
+  set: [TournamentWhereUniqueInput!]
+  update: [TournamentUpdateWithWhereUniqueWithoutPlayerInput!]
+  updateMany: [TournamentUpdateManyWithWhereNestedInput!]
+  upsert: [TournamentUpsertWithWhereUniqueWithoutPlayerInput!]
 }
 
 input TournamentUpdateManyWithoutUserInput {
@@ -1049,34 +1742,92 @@ input TournamentUpdateOneRequiredWithoutCostsInput {
   upsert: TournamentUpsertWithoutCostsInput
 }
 
+input TournamentUpdateOneRequiredWithoutTablesInput {
+  connect: TournamentWhereUniqueInput
+  create: TournamentCreateWithoutTablesInput
+  update: TournamentUpdateWithoutTablesDataInput
+  upsert: TournamentUpsertWithoutTablesInput
+}
+
 input TournamentUpdateWithoutCostsDataInput {
+  childrenUpdatedAt: DateTime
   chips: ChipUpdateManyWithoutTournamentInput
   comments: String
   createdAt: DateTime
-  game: String
+  game: Game
   id: String
   payoutLevels: PayoutLevelUpdateManyWithoutTournamentInput
+  Player: PlayerUpdateOneWithoutTournamentsInput
   segments: SegmentUpdateManyWithoutTournamentInput
   subtitle: String
+  tables: TableUpdateManyWithoutTournamentInput
+  tags: TagUpdateManyWithoutTournamentInput
   timer: TimerUpdateOneWithoutTournamentInput
   title: String
   updatedAt: DateTime
-  user: UserUpdateOneWithoutTournamentsInput
+  User: UserUpdateOneWithoutTournamentsInput
 }
 
-input TournamentUpdateWithoutUserDataInput {
+input TournamentUpdateWithoutPlayerDataInput {
+  childrenUpdatedAt: DateTime
   chips: ChipUpdateManyWithoutTournamentInput
   comments: String
   costs: CostUpdateManyWithoutTournamentInput
   createdAt: DateTime
-  game: String
+  game: Game
   id: String
   payoutLevels: PayoutLevelUpdateManyWithoutTournamentInput
   segments: SegmentUpdateManyWithoutTournamentInput
   subtitle: String
+  tables: TableUpdateManyWithoutTournamentInput
+  tags: TagUpdateManyWithoutTournamentInput
   timer: TimerUpdateOneWithoutTournamentInput
   title: String
   updatedAt: DateTime
+  User: UserUpdateOneWithoutTournamentsInput
+}
+
+input TournamentUpdateWithoutTablesDataInput {
+  childrenUpdatedAt: DateTime
+  chips: ChipUpdateManyWithoutTournamentInput
+  comments: String
+  costs: CostUpdateManyWithoutTournamentInput
+  createdAt: DateTime
+  game: Game
+  id: String
+  payoutLevels: PayoutLevelUpdateManyWithoutTournamentInput
+  Player: PlayerUpdateOneWithoutTournamentsInput
+  segments: SegmentUpdateManyWithoutTournamentInput
+  subtitle: String
+  tags: TagUpdateManyWithoutTournamentInput
+  timer: TimerUpdateOneWithoutTournamentInput
+  title: String
+  updatedAt: DateTime
+  User: UserUpdateOneWithoutTournamentsInput
+}
+
+input TournamentUpdateWithoutUserDataInput {
+  childrenUpdatedAt: DateTime
+  chips: ChipUpdateManyWithoutTournamentInput
+  comments: String
+  costs: CostUpdateManyWithoutTournamentInput
+  createdAt: DateTime
+  game: Game
+  id: String
+  payoutLevels: PayoutLevelUpdateManyWithoutTournamentInput
+  Player: PlayerUpdateOneWithoutTournamentsInput
+  segments: SegmentUpdateManyWithoutTournamentInput
+  subtitle: String
+  tables: TableUpdateManyWithoutTournamentInput
+  tags: TagUpdateManyWithoutTournamentInput
+  timer: TimerUpdateOneWithoutTournamentInput
+  title: String
+  updatedAt: DateTime
+}
+
+input TournamentUpdateWithWhereUniqueWithoutPlayerInput {
+  data: TournamentUpdateWithoutPlayerDataInput!
+  where: TournamentWhereUniqueInput!
 }
 
 input TournamentUpdateWithWhereUniqueWithoutUserInput {
@@ -1089,6 +1840,17 @@ input TournamentUpsertWithoutCostsInput {
   update: TournamentUpdateWithoutCostsDataInput!
 }
 
+input TournamentUpsertWithoutTablesInput {
+  create: TournamentCreateWithoutTablesInput!
+  update: TournamentUpdateWithoutTablesDataInput!
+}
+
+input TournamentUpsertWithWhereUniqueWithoutPlayerInput {
+  create: TournamentCreateWithoutPlayerInput!
+  update: TournamentUpdateWithoutPlayerDataInput!
+  where: TournamentWhereUniqueInput!
+}
+
 input TournamentUpsertWithWhereUniqueWithoutUserInput {
   create: TournamentCreateWithoutUserInput!
   update: TournamentUpdateWithoutUserDataInput!
@@ -1097,21 +1859,26 @@ input TournamentUpsertWithWhereUniqueWithoutUserInput {
 
 input TournamentWhereInput {
   AND: [TournamentWhereInput!]
+  childrenUpdatedAt: NullableDateTimeFilter
   chips: ChipFilter
-  comments: StringFilter
+  comments: NullableStringFilter
   costs: CostFilter
   createdAt: DateTimeFilter
-  game: StringFilter
+  game: Game
   id: UUIDFilter
   NOT: [TournamentWhereInput!]
   OR: [TournamentWhereInput!]
   payoutLevels: PayoutLevelFilter
+  Player: PlayerWhereInput
+  playerId: NullableStringFilter
   segments: SegmentFilter
-  subtitle: StringFilter
+  subtitle: NullableStringFilter
+  tables: TableFilter
+  tags: TagFilter
   timer: TimerWhereInput
   title: StringFilter
   updatedAt: DateTimeFilter
-  user: UserWhereInput
+  User: UserWhereInput
   userId: NullableStringFilter
 }
 
@@ -1122,14 +1889,16 @@ input TournamentWhereUniqueInput {
 type User {
   id: String!
   name: String!
+  tournaments(after: TournamentWhereUniqueInput, before: TournamentWhereUniqueInput, first: Int, last: Int): [Tournament!]!
 }
 
 input UserCreateInput {
   authProvider: AuthProviderCreateOneWithoutUserInput
+  contacts: ContactCreateManyWithoutUserInput
   createdAt: DateTime
   credits: Int
   id: String
-  name: String!
+  name: String
   players: PlayerCreateManyWithoutUserInput
   tournaments: TournamentCreateManyWithoutUserInput
   updatedAt: DateTime
@@ -1147,26 +1916,29 @@ input UserCreateOneWithoutTournamentsInput {
 
 input UserCreateWithoutPlayersInput {
   authProvider: AuthProviderCreateOneWithoutUserInput
+  contacts: ContactCreateManyWithoutUserInput
   createdAt: DateTime
   credits: Int
   id: String
-  name: String!
+  name: String
   tournaments: TournamentCreateManyWithoutUserInput
   updatedAt: DateTime
 }
 
 input UserCreateWithoutTournamentsInput {
   authProvider: AuthProviderCreateOneWithoutUserInput
+  contacts: ContactCreateManyWithoutUserInput
   createdAt: DateTime
   credits: Int
   id: String
-  name: String!
+  name: String
   players: PlayerCreateManyWithoutUserInput
   updatedAt: DateTime
 }
 
 input UserUpdateInput {
   authProvider: AuthProviderUpdateOneWithoutUserInput
+  contacts: ContactUpdateManyWithoutUserInput
   createdAt: DateTime
   credits: Int
   id: String
@@ -1202,6 +1974,7 @@ input UserUpdateOneWithoutTournamentsInput {
 
 input UserUpdateWithoutPlayersDataInput {
   authProvider: AuthProviderUpdateOneWithoutUserInput
+  contacts: ContactUpdateManyWithoutUserInput
   createdAt: DateTime
   credits: Int
   id: String
@@ -1212,6 +1985,7 @@ input UserUpdateWithoutPlayersDataInput {
 
 input UserUpdateWithoutTournamentsDataInput {
   authProvider: AuthProviderUpdateOneWithoutUserInput
+  contacts: ContactUpdateManyWithoutUserInput
   createdAt: DateTime
   credits: Int
   id: String
@@ -1233,9 +2007,10 @@ input UserUpsertWithoutTournamentsInput {
 input UserWhereInput {
   AND: [UserWhereInput!]
   authProvider: AuthProviderWhereInput
+  contacts: ContactFilter
   createdAt: DateTimeFilter
-  credits: IntFilter
-  id: StringFilter
+  credits: NullableIntFilter
+  id: UUIDFilter
   name: StringFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
